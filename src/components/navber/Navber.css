@@ -1,0 +1,88 @@
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 8vh;
+    padding: 0.5rem 2rem;
+    background-color: rgb(34, 7, 186);
+    position: sticky;
+    top: 0;
+    z-index: 99;
+}
+
+.logo {
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 30px;
+}
+
+.logo span {
+    color: rgb(40, 233, 43);
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+}
+
+
+.add-btns {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.add-btns button {
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    background-color: darkcyan;
+    color: white;
+    font-size: 15px;
+    border: none;
+    cursor: pointer;
+}
+
+.profile {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: black;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: rgb(47, 255, 85);
+}
+
+.profile-menu {
+    position: absolute;
+    width: 200px;
+    top: 35px;
+    right: 15px;
+    background-color: rgb(147, 152, 151);
+    border-radius: 8px;
+}
+
+.profile-menu ul {
+    display: flex;
+    flex-direction: column;
+    font-size: 18px;
+    padding: 1.5rem;
+    transition: 0.5s ease;
+}
+
+.profile-menu ul li {
+    padding: 0.5rem;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.profile-menu ul :hover {
+    background-color: rgb(110, 116, 114);
+    border-radius: 6px;
+}

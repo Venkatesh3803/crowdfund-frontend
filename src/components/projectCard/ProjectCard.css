@@ -1,0 +1,71 @@
+.project-card {
+    width: 350px;
+    border: 1px solid gray;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.card-top {
+    width: 100%;
+}
+
+
+
+.card-top img {
+    width: 100%;
+    object-fit: cover;
+    height: 30vh;
+}
+
+.card-bottom {
+    padding: 0.6rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.goal {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background-color: rgb(231, 240, 231);
+    border-radius: 8px;
+    position: relative;
+}
+
+.percent{
+    height: 8px;
+    background-color: rgb(47, 255, 85);
+    border-radius: 8px;
+    position: absolute;
+}
+
+.supporter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.left-days {
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+}
+
+.card-bottom button {
+    padding: 0.5rem;
+    width: 100%;
+    margin: 0.5rem 0;
+    font-weight: 500;
+    font-size: 18px;
+    background-color: rgb(42, 239, 42);
+    border-radius: 4px;
+    cursor: pointer;
+}
