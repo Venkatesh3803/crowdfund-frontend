@@ -10,7 +10,6 @@ const Hero = () => {
                 <p>We make digital professions accessible and help you
                     master new services</p>
                 <button>Get Started</button>
-
             </div>
         </div>
     )

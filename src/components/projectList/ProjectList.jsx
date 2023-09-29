@@ -23,7 +23,7 @@ const ProjectList = ({ profile, id }) => {
                 <>
                     <h1>Trending Fundraisers</h1>
                     <span>View the fundraisers that are most active right now</span>
-                    {project.length === 0 && <span>NO Projects Found</span>}
+
                     <div className="filters">
                         <select name="" id="" onChange={(e) => setCategory(e.currentTarget.value)}>
                             <option value="">Category</option>

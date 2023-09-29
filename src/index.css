@@ -15,6 +15,9 @@ code {
     monospace;
 }
 
+img{
+  object-fit: cover;
+}
 h1,
 h2,
 h3,

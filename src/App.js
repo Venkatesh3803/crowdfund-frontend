@@ -5,17 +5,18 @@ import LoginPage from './pages/login/LoginPage';
 import RegisterPage from './pages/register/RegisterPage';
 import AddProject from './pages/addProject/AddProject';
 import ProfilePage from './pages/profilePage/ProfilePage';
+import { useSelector } from 'react-redux';
 
 
 function App() {
 
-  const user = JSON.parse(localStorage.getItem("user"))
+  const user = useSelector(state => state.auth.user)
   return (
     <div className="App">
       <Routes>
         <Route path='/' element={<HomePage />} />
         <Route path='/project/:id' element={<ProjectPage />} />
-        <Route path='/login' element={<LoginPage />} />
+        <Route path='/login' element={user ? <Navigate to={"/"} /> : <LoginPage />} />
         <Route path='/register' element={<RegisterPage />} />
         <Route path='/profile/:id' element={<ProfilePage />} />
         <Route path='/addproject' element={user ? <AddProject /> : <Navigate to={"/login"} />} />

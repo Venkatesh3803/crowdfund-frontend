@@ -2,15 +2,19 @@ import { Link } from "react-router-dom"
 import "./Navber.css"
 import { useState } from "react"
 import { toast } from "react-toastify"
+import { useSelector, useDispatch } from "react-redux"
+import { logOut } from "../../redux/authReducer"
+
 
 
 const Navber = () => {
-    let user = JSON.parse(localStorage.getItem("user"))
+    const user = useSelector(state => state.auth.user)
+   
     const [profileMenu, setProfileMenu] = useState(false)
-
+    const dispatch = useDispatch()
 
     const handleLogOut = () => {
-        localStorage.removeItem("user")
+        dispatch(logOut())
         setProfileMenu(false)
         toast.success("LogOut Sucess")
     }
@@ -37,7 +41,7 @@ const Navber = () => {
                     </div>
                     {profileMenu &&
                         <>
-                            <div className="profile-menu" onMouseLeave={()=> setProfileMenu(false)}>
+                            <div className="profile-menu" onMouseLeave={() => setProfileMenu(false)}>
                                 <ul>
                                     <Link to={`/profile/${user._id}`} className="link">
                                         <li>

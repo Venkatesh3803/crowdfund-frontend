@@ -1,34 +1,25 @@
-import { Link, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 import "./RegisterPage.css"
 import { useState } from "react"
-import { publicRequest } from "../../requestMethods"
 import { toast } from "react-toastify"
+import { register } from "../../redux/apicalls"
+import { useDispatch } from "react-redux"
 
 
 const RegisterPage = () => {
-
+    const dispatch = useDispatch()
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [conformPass, setConformPass] = useState("")
-    const navigate = useNavigate()
 
     const handleSubmit = async (e) => {
         e.preventDefault()
         if (password !== conformPass) return toast.warn("password does not match")
-        try {
-            const res = await publicRequest.post("/auth/register", {
-                firstName, lastName, email, password
-            })
-           
-            if (res.status === 200) {
-                toast.success("Registed Sucessfully")
-                navigate("/login")
-            }
-        } catch (error) {
-            return toast.error(error.massage)
-        }
+
+        register(dispatch, { firstName, lastName, email, password })
+
     }
 
     return (
@@ -38,20 +29,20 @@ const RegisterPage = () => {
                 <div className="first-name">
                     <div className="inputs">
                         <label htmlFor="">First Name</label>
-                        <input type="text" placeholder="First Name" onChange={(e) => setFirstName(e.target.value)} />
+                        <input type="text" placeholder="First Name" required onChange={(e) => setFirstName(e.target.value)} />
                     </div>
                     <div className="inputs">
                         <label htmlFor="">Last Name</label>
-                        <input type="text" placeholder="Last Name" onChange={(e) => setLastName(e.target.value)} />
+                        <input type="text" placeholder="Last Name" required onChange={(e) => setLastName(e.target.value)} />
                     </div>
                 </div>
                 <div className="inputs">
                     <label htmlFor="email">Email</label>
-                    <input type="email" name="" id="email" placeholder="example@gamil.com" onChange={(e) => setEmail(e.target.value)} />
+                    <input type="email" name="" id="email" required placeholder="example@gamil.com" onChange={(e) => setEmail(e.target.value)} />
                 </div>
                 <div className="inputs">
                     <label htmlFor="password">passsword</label>
-                    <input type="password" name="" id="password" placeholder="password" onChange={(e) => setPassword(e.target.value)} />
+                    <input type="password" name="" id="password" required minLength={6} placeholder="password" onChange={(e) => setPassword(e.target.value)} />
                 </div>
                 <div className="inputs">
                     <label htmlFor="conform password">conform passsword</label>

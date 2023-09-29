@@ -3,11 +3,12 @@ import userImg from "../../images/user.png"
 import Donations from "../donations/Donations"
 import { useEffect, useState } from "react"
 import { imageUrl, publicRequest, userRequest } from "../../requestMethods"
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import { toast } from "react-toastify"
+import { useSelector } from "react-redux"
 
 const Project = ({ data }) => {
-    const user = JSON.parse(localStorage.getItem("user"))
+    const user = useSelector(state => state.auth.user)
     const PF = `${imageUrl}/images/`
     const [userProfile, setUserProfile] = useState({})
     const [risedAmount, setRisedAmout] = useState(0)
@@ -31,6 +32,13 @@ const Project = ({ data }) => {
 
     const handleDonation = async (e) => {
         e.preventDefault();
+
+        if (!user) {
+            window.location.replace("/login")
+            return
+        }
+
+
         try {
             const res = await userRequest.post(`/donation/${id}`, {
                 userId: user._id,
@@ -67,12 +75,15 @@ const Project = ({ data }) => {
                     {/* description */}
                     {editMode && <textarea rows={3} cols={10} value={data.description} />}
                     {!editMode && <p>{data.description}</p>}
+
                     {/* Noof days */}
                     {editMode && <input type="number" className="number" value={data.numberOfDays} />}
                     {!editMode && <p>{data.numberOfDays} Days Left</p>}
-                    <p>{data.numberOfDays} Days Left</p>
+
                     <div className="user-profile">
-                        <img src={userImg} alt="" />
+                        <Link to={`/profile/${userProfile._id}`}>
+                            <img src={userProfile.image ? PF + userProfile.image : userImg} alt="" />
+                        </Link>
                         <p>{userProfile?.firstName + userProfile?.lastName}</p>
                     </div>
 
@@ -91,7 +102,8 @@ const Project = ({ data }) => {
                                 <button>Delete</button>
                             </>
                         }
-                        {user && <input type="number" placeholder="Amount to Donate" onChange={(e) => setRisedAmout(e.target.value)} />}
+                        <input type="number" placeholder="Amount to Donate" required onChange={(e) => setRisedAmout(e.target.value)} />
+
                         <button onClick={handleDonation}>Donate</button>
                     </div>
                 </div>

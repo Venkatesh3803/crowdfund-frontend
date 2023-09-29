@@ -1,30 +1,21 @@
 import { Link, useNavigate } from "react-router-dom"
 import "./LoginPage.css"
 import { useState } from "react"
-import { publicRequest } from "../../requestMethods"
-import { toast } from "react-toastify"
+import { useDispatch, useSelector } from "react-redux"
+import { login } from "../../redux/apicalls"
 
 const LoginPage = () => {
+    const { error, sucess } = useSelector(state => state.auth)
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const [err, setErr] = useState(false)
     const navigate = useNavigate()
 
+    const dispatch = useDispatch()
     const handleSubmit = async (e) => {
         e.preventDefault()
-
-        try {
-            const res = await publicRequest.post("/auth/login", {
-                email, password
-            })
-
-            if (res.status === 201) {
-                localStorage.setItem("user", JSON.stringify(res.data))
-                toast.success("Login Sucess")
-                navigate("/")
-            }
-        } catch (error) {
-            setErr(true)
+        login(dispatch, { email, password })
+        if (sucess === true) {
+            navigate("/")
         }
     }
     return (
@@ -33,16 +24,16 @@ const LoginPage = () => {
                 <h2 style={{ textAlign: "center" }}>Login in</h2>
                 <div className="inputs">
                     <label htmlFor="email">Email</label>
-                    <input type="email" name="" id="email" placeholder="example@gamil.com" onChange={(e) => setEmail(e.target.value)} />
+                    <input type="email" name="" id="email" placeholder="example@gamil.com" required onChange={(e) => setEmail(e.target.value)} />
                 </div>
                 <div className="inputs">
                     <label htmlFor="password">passsword</label>
-                    <input type="password" name="" id="password" placeholder="password" onChange={(e) => setPassword(e.target.value)} />
+                    <input type="password" name="" id="password" placeholder="password" required onChange={(e) => setPassword(e.target.value)} />
                 </div>
                 <Link to={"/register"} className="link">
                     <p>Don't have Account! Sign Up</p>
                 </Link>
-                {err && <p style={{ color: "red", textAlign: "end" }}>*Invalid Credentials</p>}
+                {error && <p style={{ color: "red", textAlign: "end" }}>*Invalid Credentials</p>}
                 <button type="submit">Log In</button>
             </form>
         </div>

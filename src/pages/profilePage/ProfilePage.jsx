@@ -8,8 +8,10 @@ import { useParams } from "react-router-dom"
 import userImage from "../../images/user.png"
 import { toast } from "react-toastify"
 import { FcCancel } from "react-icons/fc"
+import { useSelector } from "react-redux"
 
 const ProfilePage = () => {
+    const user = useSelector(state => state.auth.user)
     const [editMode, setEditMode] = useState(false)
     const { id } = useParams()
     const [inputs, setInputs] = useState({})
@@ -66,7 +68,8 @@ const ProfilePage = () => {
             <Navber />
             <div className="profile-page">
                 <div className="profile-card">
-                    {!editMode && <AiOutlineEdit onClick={() => setEditMode(true)}
+
+                    {id === user?._id && <AiOutlineEdit onClick={() => setEditMode(true)}
                         className="edit" />}
 
                     {editMode && <FcCancel onClick={() => setEditMode(false)} className="edit" />}
