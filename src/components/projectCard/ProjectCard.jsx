@@ -3,9 +3,10 @@ import { FcLike } from "react-icons/fc"
 import "./ProjectCard.css"
 import { Link } from "react-router-dom"
 import userImg from "../../images/user.png"
+import { imageUrl } from "../../requestMethods"
 
 const ProjectCard = ({ data }) => {
-    const PF = "http://localhost:5500/images/"
+    const PF = `${imageUrl}/images/`
     return (
         <div className="project-card">
             <div className="card-top">
@@ -22,7 +23,7 @@ const ProjectCard = ({ data }) => {
                     <h3>{data.risedAmount}</h3> <span>raised out of {data.goal}</span>
                 </div>
                 <div className="progress-bar">
-                    <div className="percent" style={{ width: `${data.risedAmount / data.goal}` }}></div>
+                    <div className="percent" style={{ width: `${data.goal / data.risedAmount}` }}></div>
                 </div>
                 <div className="supporter">
                     <div className="left-days">

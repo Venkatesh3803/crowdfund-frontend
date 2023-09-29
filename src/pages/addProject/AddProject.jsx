@@ -3,11 +3,13 @@ import Navber from "../../components/navber/Navber"
 import "./AddProject.css"
 import { publicRequest, userRequest } from "../../requestMethods"
 import { toast } from "react-toastify"
+import { useNavigate } from "react-router-dom"
 
 const AddProject = () => {
     const user = JSON.parse(localStorage.getItem("user"))
     const [inputs, setInputs] = useState({})
     const [image, setImage] = useState("")
+    const navigate = useNavigate()
 
     const handleChange = (e) => {
         setInputs(prevState => ({ ...prevState, [e.target.name]: e.target.value }));
@@ -17,7 +19,7 @@ const AddProject = () => {
         e.preventDefault();
 
         let newProject = {
-            userId: user._id,
+            userId: user?._id,
             title: inputs.title,
             description: inputs.description,
             goal: inputs.goal,
@@ -31,7 +33,7 @@ const AddProject = () => {
             data.append("name", fileName);
             data.append("file", image);
             newProject.image = fileName;
-  
+
             try {
                 await publicRequest.post("/upload", data)
             } catch (err) {
@@ -41,7 +43,11 @@ const AddProject = () => {
 
         try {
             let res = await userRequest.post("/project", newProject)
-            if (res.status === 201) {
+            if (res.status !== 201) {
+                toast.warn("Session expired")
+                navigate("/login")
+            } else {
+                console.log("other than 201")
                 toast.success("posted sucessful")
             }
         } catch (error) {

@@ -3,8 +3,11 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
-  background-color: rgb(9, 9, 78);
+  background-color: rgb(13, 13, 53);
   color: white;
+}
+*{
+  box-sizing: border-box;
 }
 
 code {
@@ -28,4 +31,8 @@ ul, li{
   list-style: none;
   margin: 0;
   padding: 0;
+}
+
+::-webkit-scrollbar{
+  display: none;
 }

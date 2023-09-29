@@ -1,8 +1,8 @@
 .donations {
     margin-top: 5rem;
     display: flex;
-    align-items: center;
     justify-content: center;
+    overflow-x: scroll;
 }
 
 td,
@@ -10,9 +10,14 @@ th {
     border: 1px solid gray;
     padding: 1rem 2rem;
     color: rgb(250, 244, 244);
-    text-align: center;
 }
 
 table {
     width: 100%;
+}
+
+@media screen and (max-width : 780px) {
+    td, th {
+        padding: 0.5rem 1rem;
+    }
 }

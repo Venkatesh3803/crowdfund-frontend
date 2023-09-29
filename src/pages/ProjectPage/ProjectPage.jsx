@@ -5,19 +5,19 @@ import { useParams } from 'react-router-dom'
 import { publicRequest } from '../../requestMethods'
 
 const ProjectPage = () => {
-    const [project, setProject] = useState("")
     const { id } = useParams()
+    const [inputs, setInputs] = useState({})
     useEffect(() => {
         const fetchingProjects = async () => {
             const res = await publicRequest.get(`/project/single/${id}`)
-            setProject(res.data)
+            setInputs(res.data)
         }
         fetchingProjects()
     }, [id])
     return (
         <div>
             <Navber />
-            <Project data={project} />
+            <Project data={inputs} />
         </div>
     )
 }

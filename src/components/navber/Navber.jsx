@@ -37,14 +37,13 @@ const Navber = () => {
                     </div>
                     {profileMenu &&
                         <>
-                            <div className="profile-menu">
+                            <div className="profile-menu" onMouseLeave={()=> setProfileMenu(false)}>
                                 <ul>
-                                    <Link to={"/profile"} className="link">
+                                    <Link to={`/profile/${user._id}`} className="link">
                                         <li>
                                             Profile
                                         </li>
                                     </Link>
-                                    <li>Donations List</li>
                                     <li onClick={handleLogOut}>Log Out</li>
                                 </ul>
                             </div>

@@ -2,16 +2,19 @@ import "./Project.css"
 import userImg from "../../images/user.png"
 import Donations from "../donations/Donations"
 import { useEffect, useState } from "react"
-import { publicRequest, userRequest } from "../../requestMethods"
+import { imageUrl, publicRequest, userRequest } from "../../requestMethods"
 import { useParams } from "react-router-dom"
 import { toast } from "react-toastify"
 
 const Project = ({ data }) => {
     const user = JSON.parse(localStorage.getItem("user"))
-    const PF = "http://localhost:5500/images/"
+    const PF = `${imageUrl}/images/`
     const [userProfile, setUserProfile] = useState({})
     const [risedAmount, setRisedAmout] = useState(0)
     const { id } = useParams()
+    const [editMode, setEditMode] = useState(false)
+
+
 
     useEffect(() => {
         const fetchingProfile = async () => {
@@ -32,17 +35,22 @@ const Project = ({ data }) => {
             const res = await userRequest.post(`/donation/${id}`, {
                 userId: user._id,
                 projectId: id,
-                risedAmount: risedAmount,
+                risedAmount: parseInt(risedAmount),
                 email: user.email
             })
-
-            if (res.status === 200) {
+            if (res.status === 201) {
                 toast.success("donated Sucessfully")
+                setRisedAmout("")
             }
         } catch (error) {
             return error
         }
     }
+
+    const handleUpdate = async () => {
+        setEditMode(false)
+    }
+
 
 
     return (
@@ -52,15 +60,24 @@ const Project = ({ data }) => {
                     <img src={data.image ? PF + data.image : ""} alt="" />
                 </div>
                 <div className="project-right">
-                    <h2>{data.title}</h2>
-                    <p>{data.description}</p>
-                    <p>{data.numberOfDays}</p>
+                    {/* title */}
+                    {editMode && <input type="text" value={data.title} />}
+                    {!editMode && <h2>{data.title}</h2>}
+
+                    {/* description */}
+                    {editMode && <textarea rows={3} cols={10} value={data.description} />}
+                    {!editMode && <p>{data.description}</p>}
+                    {/* Noof days */}
+                    {editMode && <input type="number" className="number" value={data.numberOfDays} />}
+                    {!editMode && <p>{data.numberOfDays} Days Left</p>}
+                    <p>{data.numberOfDays} Days Left</p>
                     <div className="user-profile">
                         <img src={userImg} alt="" />
                         <p>{userProfile?.firstName + userProfile?.lastName}</p>
                     </div>
+
                     <div className="progress-bar">
-                        <div className="percent" style={{ width: `${data.risedAmount / data.goal}` }}></div>
+                        <div className="percent" style={{ width: `${Math.floor(data.goal / data.risedAmount)}%` }}></div>
                         <div className="donated-amount">
                             <h4>{data.risedAmount}</h4>
                             <h4>{data.goal}</h4>
@@ -70,7 +87,7 @@ const Project = ({ data }) => {
                     <div className="project-btns">
                         {user?._id === data.userId &&
                             <>
-                                <button>Edit</button>
+                                {editMode ? <button onClick={handleUpdate}>Update</button> : <button onClick={() => setEditMode(true)}>Edit</button>}
                                 <button>Delete</button>
                             </>
                         }
@@ -78,7 +95,6 @@ const Project = ({ data }) => {
                         <button onClick={handleDonation}>Donate</button>
                     </div>
                 </div>
-
             </div>
             <Donations data={data} />
         </div>

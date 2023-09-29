@@ -3,6 +3,7 @@
     width: 80%;
     display: block;
     margin: auto;
+    overflow: hidden;
 }
 
 .project-container {
@@ -60,4 +61,24 @@
     border-radius: 4px;
     font-size: 16px;
     cursor: pointer;
+}
+
+.project-right input {
+    padding: 0.5rem;
+    border-radius: 4px;
+}
+
+.number {
+    width: 80px;
+}
+
+@media screen and (max-width : 780px) {
+    .project-container {
+        flex-direction: column;
+    }
+
+    .project-left img {
+        height: 50vh;
+    }
+
 }
