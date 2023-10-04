@@ -3,6 +3,7 @@ import Navber from '../../components/navber/Navber'
 import Project from '../../components/project/Project'
 import { useParams } from 'react-router-dom'
 import { publicRequest } from '../../requestMethods'
+import Footer from '../../components/footer/Footer'
 
 const ProjectPage = () => {
     const { id } = useParams()
@@ -17,7 +18,8 @@ const ProjectPage = () => {
     return (
         <div>
             <Navber />
-            <Project data={inputs} />
+            <Project inputs={inputs} setInputs={setInputs} />
+            <Footer />
         </div>
     )
 }

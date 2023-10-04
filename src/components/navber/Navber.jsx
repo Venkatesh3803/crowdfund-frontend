@@ -9,7 +9,7 @@ import { logOut } from "../../redux/authReducer"
 
 const Navber = () => {
     const user = useSelector(state => state.auth.user)
-   
+
     const [profileMenu, setProfileMenu] = useState(false)
     const dispatch = useDispatch()
 
@@ -17,6 +17,7 @@ const Navber = () => {
         dispatch(logOut())
         setProfileMenu(false)
         toast.success("LogOut Sucess")
+        window.location.replace("/")
     }
     return (
         <>

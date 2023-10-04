@@ -58,11 +58,6 @@ export const authSlice = createSlice({
       state.error = false;
       state.isLoading = false
       localStorage.removeItem("user")
-
-      toast.success(
-        "Logout",
-        { position: "bottom-center" })
-
     }
   }
 })

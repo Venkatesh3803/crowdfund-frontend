@@ -9,6 +9,7 @@ import userImage from "../../images/user.png"
 import { toast } from "react-toastify"
 import { FcCancel } from "react-icons/fc"
 import { useSelector } from "react-redux"
+import Footer from "../../components/footer/Footer"
 
 const ProfilePage = () => {
     const user = useSelector(state => state.auth.user)
@@ -100,6 +101,7 @@ const ProfilePage = () => {
                 </div>
                 <ProjectList profile id={id} />
             </div>
+            <Footer />
         </div>
     )
 }

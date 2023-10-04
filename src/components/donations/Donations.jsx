@@ -39,7 +39,7 @@ const Donations = () => {
                                 <td>{d._id}</td>
                                 <td>{d.email}</td>
                                 <td>No refund</td>
-                                <td>{d.risedAmount}</td>
+                                <td>₹{d.risedAmount}</td>
                                 <td>{moment(d.createdAt).startOf().fromNow()}</td>
                             </tr>
                         )

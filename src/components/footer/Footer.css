@@ -1,0 +1,43 @@
+.footer {
+    border-top: 1px solid gray;
+    padding-bottom: 2rem;
+}
+
+.footer-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.footer-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.footer-list ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.logo {
+    text-align: center;
+    margin: 2rem;
+}
+
+.footer-list ul li {
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease-in-out;
+}
+
+.footer-list ul li:hover {
+    color: tomato;
+}
+
+@media screen and (max-width: 480px) {
+    .footer-container {
+        flex-direction: column;
+    }
+}

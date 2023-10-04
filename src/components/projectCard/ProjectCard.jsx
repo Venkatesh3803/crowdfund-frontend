@@ -7,6 +7,7 @@ import { imageUrl } from "../../requestMethods"
 
 const ProjectCard = ({ data }) => {
     const PF = `${imageUrl}/images/`
+
     return (
         <div className="project-card">
             <div className="card-top">
@@ -20,10 +21,10 @@ const ProjectCard = ({ data }) => {
                 </Link>
 
                 <div className="goal">
-                    <h3>{data.risedAmount}</h3> <span>raised out of {data.goal}</span>
+                    <h3>₹{data.risedAmount}</h3> <span>raised out of ₹{data.goal}</span>
                 </div>
                 <div className="progress-bar">
-                    <div className="percent" style={{ width: `${data.goal / data.risedAmount}` }}></div>
+                    <div className="percent" style={{ width: `${Math.floor((data.risedAmount / data.goal) * 100)}%` }}></div>
                 </div>
                 <div className="supporter">
                     <div className="left-days">

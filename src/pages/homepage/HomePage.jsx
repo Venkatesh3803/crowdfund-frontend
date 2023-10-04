@@ -1,6 +1,7 @@
 import Navber from '../../components/navber/Navber'
 import Hero from '../../components/hero/Hero'
 import ProjectList from '../../components/projectList/ProjectList'
+import Footer from '../../components/footer/Footer'
 
 const HomePage = () => {
     return (
@@ -8,6 +9,7 @@ const HomePage = () => {
             <Navber />
             <Hero />
             <ProjectList />
+            <Footer />
         </div>
     )
 }
