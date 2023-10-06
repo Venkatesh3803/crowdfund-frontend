@@ -73,6 +73,12 @@
     width: 80px;
 }
 
+.project-inputs {
+    background-color: transparent;
+    /* border: none; */
+    color: white;
+}
+
 @media screen and (max-width : 780px) {
     .project-container {
         flex-direction: column;

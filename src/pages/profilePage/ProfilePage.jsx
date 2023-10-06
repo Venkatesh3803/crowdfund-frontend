@@ -70,7 +70,7 @@ const ProfilePage = () => {
             <div className="profile-page">
                 <div className="profile-card">
 
-                    {id === user?._id && <AiOutlineEdit onClick={() => setEditMode(true)}
+                    {id === user?._id && !editMode && <AiOutlineEdit onClick={() => setEditMode(true)}
                         className="edit" />}
 
                     {editMode && <FcCancel onClick={() => setEditMode(false)} className="edit" />}

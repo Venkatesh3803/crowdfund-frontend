@@ -44,6 +44,8 @@ export const authSlice = createSlice({
           "Login Success",
           { position: "bottom-center" })
       }
+
+      localStorage.setItem("token", JSON.stringify(action.payload.token))
       localStorage.setItem("user", JSON.stringify(action.payload))
 
     },

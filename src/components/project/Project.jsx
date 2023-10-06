@@ -6,6 +6,11 @@ import { imageUrl, publicRequest, userRequest } from "../../requestMethods"
 import { Link, useParams } from "react-router-dom"
 import { toast } from "react-toastify"
 import { useSelector } from "react-redux"
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
+import { useNavigate } from "react-router-dom"
+
+
 
 const Project = ({ inputs, setInputs }) => {
     const user = useSelector(state => state.auth.user)
@@ -15,7 +20,7 @@ const Project = ({ inputs, setInputs }) => {
     const { id } = useParams()
     const [editMode, setEditMode] = useState(false)
     const [image, setImage] = useState(false)
-
+    const navigate = useNavigate()
 
 
     const handleChange = (e) => {
@@ -42,10 +47,14 @@ const Project = ({ inputs, setInputs }) => {
             return
         }
 
-        if (risedAmount === "") {
+        if (risedAmount.length === 0) {
             return toast.warn("Enter Amount")
         }
-        console.log(risedAmount)
+
+        if (user?.balance < risedAmount) {
+            return toast.warn("You don't have Suffient Balance Please Add Balance")
+        }
+
         try {
             const res = await userRequest.post(`/donation/${id}`, {
                 userId: user._id,
@@ -93,14 +102,39 @@ const Project = ({ inputs, setInputs }) => {
 
 
     const handleDelete = async (id) => {
-        const res = await userRequest.delete(`/project/${id}`, {
-            userId: user._id,
-        });
-        if (res.status === 200) {
-            toast.success("Deleted Sucessfully")
-            window.location.replace("/")
-        }
 
+        confirmAlert({
+            title: 'Confirm to Delete Project',
+            message: 'Are you sure to Delete.',
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: async () => {
+                        try {
+                            const res = await userRequest.delete(`/project/${id}`, {
+                                userId: user._id,
+                            });
+                            if (res.status === 200) {
+                                toast.success("Deleted Sucessfully")
+                                window.location.replace("/")
+                            }
+                        } catch (error) {
+                            console.log(error.response.data)
+                            if (error.response.data === "jwt expired") {
+                                toast.warn("Session Expired")
+                                navigate("/");
+                                localStorage.removeItem("user")
+                                localStorage.removeItem("token")
+                            }
+                        }
+                    }
+                },
+                {
+                    label: 'No',
+                    onClick: () => { return }
+                }
+            ]
+        });
     }
 
 
@@ -112,11 +146,11 @@ const Project = ({ inputs, setInputs }) => {
                 </div>
                 <div className="project-right">
                     {/* title */}
-                    {editMode && <input type="text" value={inputs.title} name="title" onChange={handleChange} />}
+                    {editMode && <input type="text" className="project-inputs" value={inputs.title} name="title" onChange={handleChange} />}
                     {!editMode && <h2>{inputs.title}</h2>}
 
                     {/* description */}
-                    {editMode && <textarea rows={3} cols={10} value={inputs.description} name="description" onChange={handleChange} />}
+                    {editMode && <textarea rows={5} cols={10} className="project-inputs" value={inputs.description} name="description" onChange={handleChange} />}
                     {!editMode && <p>{inputs.description}</p>}
 
                     {/* Noof days */}
@@ -134,7 +168,7 @@ const Project = ({ inputs, setInputs }) => {
                         <div className="percent" style={{ width: `${Math.floor((inputs.risedAmount / inputs.goal) * 100)}%` }}></div>
                         <div className="donated-amount">
                             <h4>₹{inputs.risedAmount}</h4>
-                            {editMode && <input type="number" value={inputs.goal} name="goal" onChange={handleChange} />}
+                            {editMode && <input type="number" className="project-inputs" value={inputs.goal} name="goal" onChange={handleChange} />}
                             {!editMode && <h4>₹{inputs.goal}</h4>}
                         </div>
                     </div>

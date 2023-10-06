@@ -44,7 +44,9 @@ const AddProject = () => {
 
         try {
             let res = await userRequest.post("/project", newProject)
-            if (res.status !== 201) {
+
+            console.log(res.status)
+            if (res.status === 401) {
                 toast.warn("Session expired")
                 navigate("/login")
             } else {
@@ -52,7 +54,9 @@ const AddProject = () => {
                 toast.success("posted sucessful")
             }
         } catch (error) {
+            console.log(error.message)
             return error.message
+
         }
     }
     return (
