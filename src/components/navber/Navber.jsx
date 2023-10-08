@@ -17,7 +17,7 @@ const Navber = () => {
         dispatch(logOut())
         setProfileMenu(false)
         toast.success("LogOut Sucess")
-     
+
     }
     return (
         <>
@@ -29,6 +29,9 @@ const Navber = () => {
                 </div>
                 <div className="nav-right">
                     <div className="add-btns">
+                        <Link to={"/about"}className="link">
+                        <span style={{marginRight:"1rem", fontSize:"18px"}}>About</span>
+                        </Link>
                         <Link to={"/addproject"}>
                             <button >Add Project</button>
                         </Link>

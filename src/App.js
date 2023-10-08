@@ -6,6 +6,7 @@ import RegisterPage from './pages/register/RegisterPage';
 import AddProject from './pages/addProject/AddProject';
 import ProfilePage from './pages/profilePage/ProfilePage';
 import { useSelector } from 'react-redux';
+import About from './pages/aboutpage/About';
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Route path='/login' element={user ? <Navigate to={"/"} /> : <LoginPage />} />
         <Route path='/register' element={<RegisterPage />} />
         <Route path='/profile/:id' element={<ProfilePage />} />
+        <Route path='/about' element={<About />} />
         <Route path='/addproject' element={user ? <AddProject /> : <Navigate to={"/login"} />} />
       </Routes>
     </div>
