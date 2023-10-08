@@ -24,6 +24,7 @@ const RegisterPage = () => {
 
     return (
         <div className="register">
+            <span> Sign Up and Get ₹5000 Bonous</span>
             <form action="" onSubmit={handleSubmit}>
                 <h2 style={{ textAlign: "center" }}>Sign Up</h2>
                 <div className="first-name">

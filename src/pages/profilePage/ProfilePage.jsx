@@ -14,6 +14,7 @@ import Footer from "../../components/footer/Footer"
 const ProfilePage = () => {
     const user = useSelector(state => state.auth.user)
     const [editMode, setEditMode] = useState(false)
+    const [balance, setBalance] = useState(false)
     const { id } = useParams()
     const [inputs, setInputs] = useState({})
     const [image, setImage] = useState("")
@@ -50,6 +51,7 @@ const ProfilePage = () => {
             toast.success("updated Sucessfully")
         }
         setEditMode(false)
+        setBalance(false)
     }
 
 
@@ -91,10 +93,17 @@ const ProfilePage = () => {
                         {!editMode && <span>{inputs.email}</span>}
                         {editMode && <input type="text" name="email" value={inputs.email} onChange={handleChange} />}
                     </div>
-                    <div className="names">
-                        <h4>Balance: -</h4>
-                        {!editMode && <span>{inputs.balance}</span>}
-                        {editMode && <input type="number" name="balance" value={inputs.balance} onChange={handleChange} />}
+                    <div style={{ display: "flex", alignItems: "center", gap: "2rem" }}>
+                        <div className="names">
+                            <h4>Balance: -</h4>
+                            {!editMode && !balance && <span>{inputs.balance}</span>}
+                            {editMode && <input type="number" name="balance" value={inputs.balance} onChange={handleChange} />}
+                            {balance && <input type="number" name="balance" value={inputs.balance} onChange={handleChange} />}
+                        </div>
+                        <div className="names">
+                            {!balance && !editMode && <button onClick={() => setBalance(true)} className="btn"> Add </button>}
+                            {balance && <button onClick={handleUpdate} className="btn"> Submit </button>}
+                        </div>
                     </div>
 
                     {editMode && <button className="update" onClick={handleUpdate}>Update</button>}

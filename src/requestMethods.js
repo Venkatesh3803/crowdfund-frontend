@@ -8,7 +8,7 @@ export const imageUrl = "https://crowdfunding-backed.onrender.com"
 // export const imageUrl = "http://localhost:5500"
 
 
-const TOKEN = localStorage.getItem("token") ? JSON.parse(localStorage.getItem("token")) : "blank";
+const TOKEN = localStorage.getItem("token") ? JSON.parse(localStorage.getItem("token")) :"blank";
 
 
 export const publicRequest = axios.create({

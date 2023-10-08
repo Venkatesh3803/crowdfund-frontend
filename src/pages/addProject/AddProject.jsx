@@ -54,7 +54,10 @@ const AddProject = () => {
                 toast.success("posted sucessful")
             }
         } catch (error) {
-            console.log(error.message)
+
+            if (error.response.data === "jwt malformed") {
+                toast.warn("Opps something went, Refresh page and try again")
+            }
             return error.message
 
         }

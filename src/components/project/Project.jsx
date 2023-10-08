@@ -49,25 +49,23 @@ const Project = ({ inputs, setInputs }) => {
 
         if (risedAmount.length === 0) {
             return toast.warn("Enter Amount")
-        }
-
-        if (user?.balance < risedAmount) {
+        } else if (user?.balance < risedAmount) {
             return toast.warn("You don't have Suffient Balance Please Add Balance")
-        }
-
-        try {
-            const res = await userRequest.post(`/donation/${id}`, {
-                userId: user._id,
-                projectId: id,
-                risedAmount: parseInt(risedAmount),
-                email: user.email
-            })
-            if (res.status === 201) {
-                toast.success("donated Sucessfully")
-                setRisedAmout("")
+        } else {
+            try {
+                const res = await userRequest.post(`/donation/${id}`, {
+                    userId: user._id,
+                    projectId: id,
+                    risedAmount: parseInt(risedAmount),
+                    email: user.email
+                })
+                if (res.status === 201) {
+                    toast.success("donated Sucessfully")
+                    setRisedAmout("")
+                }
+            } catch (error) {
+                return error
             }
-        } catch (error) {
-            return error
         }
     }
 
@@ -145,6 +143,8 @@ const Project = ({ inputs, setInputs }) => {
                     <img src={inputs.image ? PF + inputs.image : ""} alt="" />
                 </div>
                 <div className="project-right">
+                    {editMode && <span className="cancel" onClick={() => setEditMode(false)}>X</span>}
+
                     {/* title */}
                     {editMode && <input type="text" className="project-inputs" value={inputs.title} name="title" onChange={handleChange} />}
                     {!editMode && <h2>{inputs.title}</h2>}

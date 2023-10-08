@@ -39,3 +39,8 @@ ul, li{
 ::-webkit-scrollbar{
   display: none;
 }
+
+.btn{
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+}

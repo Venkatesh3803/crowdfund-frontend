@@ -17,7 +17,7 @@ const Navber = () => {
         dispatch(logOut())
         setProfileMenu(false)
         toast.success("LogOut Sucess")
-        window.location.replace("/")
+     
     }
     return (
         <>

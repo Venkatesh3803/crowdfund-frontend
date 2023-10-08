@@ -26,7 +26,7 @@ const ProjectList = ({ profile, id }) => {
 
                     <div className="filters">
                         <select name="" id="" onChange={(e) => setCategory(e.currentTarget.value)}>
-                            <option value="">Category</option>
+                         
                             <option value="">All</option>
                             <option value="education">Education</option>
                             <option value="health">Health</option>
