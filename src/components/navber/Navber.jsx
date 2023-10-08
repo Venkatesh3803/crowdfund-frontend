@@ -23,14 +23,18 @@ const Navber = () => {
         <>
             <nav>
                 <div className="nav-left">
-                    <Link to={"/"} className="link">
-                        <h2 className="logo"><span>Crowd</span> Funding</h2>
-                    </Link>
+
+                    <h2 className="logo">
+                        <Link to={"/"} className="link">
+                            <span>Crowd</span> Funding
+                        </Link>
+                    </h2>
+
                 </div>
                 <div className="nav-right">
                     <div className="add-btns">
-                        <Link to={"/about"}className="link">
-                        <span style={{marginRight:"1rem", fontSize:"18px"}}>About</span>
+                        <Link to={"/about"} className="link">
+                            <span style={{ marginRight: "1rem", fontSize: "18px" }}>About</span>
                         </Link>
                         <Link to={"/addproject"}>
                             <button >Add Project</button>

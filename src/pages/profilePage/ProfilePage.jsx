@@ -97,11 +97,11 @@ const ProfilePage = () => {
                         <div className="names">
                             <h4>Balance: -</h4>
                             {!editMode && !balance && <span>{inputs.balance}</span>}
-                            {editMode && <input type="number" name="balance" value={inputs.balance} onChange={handleChange} />}
+                            { editMode && <input type="number" name="balance" value={inputs.balance} onChange={handleChange} />}
                             {balance && <input type="number" name="balance" value={inputs.balance} onChange={handleChange} />}
                         </div>
                         <div className="names">
-                            {!balance && !editMode && <button onClick={() => setBalance(true)} className="btn"> Add </button>}
+                            {id === user?._id && !balance && !editMode && <button onClick={() => setBalance(true)} className="btn"> Add </button>}
                             {balance && <button onClick={handleUpdate} className="btn"> Submit </button>}
                         </div>
                     </div>

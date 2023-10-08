@@ -20,6 +20,8 @@ nav {
     color: rgb(40, 233, 43);
 }
 
+
+
 .nav-right {
     display: flex;
     align-items: center;
@@ -85,4 +87,23 @@ nav {
 .profile-menu ul :hover {
     background-color: rgb(110, 116, 114);
     border-radius: 6px;
+}
+
+@media screen and (max-width : 780px) {
+    nav {
+        padding: 0.5rem
+    }
+
+    .logo {
+        font-size: 18px;
+    }
+
+    .nav-right button {
+        padding: 0.4rem;
+        font-size: 14px;
+    }
+
+.nav-right span{
+    font-size: 16px;
+}
 }

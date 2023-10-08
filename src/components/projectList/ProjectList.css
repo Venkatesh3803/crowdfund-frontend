@@ -61,8 +61,23 @@ select {
     font-size: 16px;
 }
 
-select option{
+select option {
     background-color: transparent;
     color: black;
     padding: 0.5rem;
 }
+
+@media screen and (max-width:780px) {
+
+    
+    .filters select {
+        width: 40%;
+        padding: 0.2rem;
+        font-size: 14px;
+    }
+
+    .filters .search {
+        width: 50%;
+    }
+}
+

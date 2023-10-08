@@ -38,11 +38,16 @@
   border-radius: 4px;
 }
 
+.filters {
+  display: flex;
+}
+
 .update {
   padding: 0.5rem;
   font-weight: 600;
   cursor: pointer;
 }
+
 
 @media screen and (max-width: 780px) {
   .profile-card {
