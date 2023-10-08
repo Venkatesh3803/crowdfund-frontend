@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom"
 
 const Project = ({ inputs, setInputs }) => {
     const user = useSelector(state => state.auth.user)
+    const [donateUser, setDonateUser] = useState("")
     const PF = `${imageUrl}/images/`
     const [userProfile, setUserProfile] = useState({})
     const [risedAmount, setRisedAmout] = useState(0)
@@ -39,6 +40,18 @@ const Project = ({ inputs, setInputs }) => {
         fetchingProfile()
     }, [inputs.userId])
 
+    useEffect(() => {
+        const fetchingProfile = async () => {
+            try {
+                const res = await publicRequest.get(`/user/single/${user?._id}`)
+                setDonateUser(res.data)
+            } catch (error) {
+                return error
+            }
+        }
+        fetchingProfile()
+    }, [user._id])
+
 
     const handleDonation = async (e) => {
         e.preventDefault();
@@ -49,24 +62,30 @@ const Project = ({ inputs, setInputs }) => {
 
         if (risedAmount.length === 0) {
             return toast.warn("Enter Amount")
-        } else if (user?.balance < risedAmount) {
-            return toast.warn("You don't have Suffient Balance Please Add Balance")
-        } else {
-            try {
-                const res = await userRequest.post(`/donation/${id}`, {
-                    userId: user._id,
-                    projectId: id,
-                    risedAmount: parseInt(risedAmount),
-                    email: user.email
-                })
-                if (res.status === 201) {
-                    toast.success("donated Sucessfully")
-                    setRisedAmout("")
-                }
-            } catch (error) {
-                return error
-            }
         }
+
+
+        if (parseInt(risedAmount) > donateUser.balance) {
+            return toast.warn("You don't have Suffient Balance Please Add Balance")
+        }
+
+
+
+        try {
+            const res = await userRequest.post(`/donation/${id}`, {
+                userId: user._id,
+                projectId: id,
+                risedAmount: parseInt(risedAmount),
+                email: user.email
+            })
+            if (res.status === 201) {
+                toast.success("donated Sucessfully")
+                setRisedAmout("")
+            }
+        } catch (error) {
+            return error
+        }
+
     }
 
     const handleUpdate = async () => {
