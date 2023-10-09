@@ -26,7 +26,6 @@ const ProfilePage = () => {
 
     const handleUpdate = async () => {
         const updated = {
-            email: inputs.email,
             firstName: inputs.firstName,
             lastName: inputs.lastName,
             balance: inputs.balance,
@@ -91,13 +90,13 @@ const ProfilePage = () => {
                     <div className="names">
                         <h4>Email: -</h4>
                         {!editMode && <span>{inputs.email}</span>}
-                        {editMode && <input type="text" name="email" value={inputs.email} onChange={handleChange} />}
+                        {editMode && <span>{inputs.email}</span>}
                     </div>
                     <div style={{ display: "flex", alignItems: "center", gap: "2rem" }}>
                         <div className="names">
                             <h4>Balance: -</h4>
                             {!editMode && !balance && <span>{inputs.balance}</span>}
-                            { editMode && <input type="number" name="balance" value={inputs.balance} onChange={handleChange} />}
+                            {editMode && <input type="number" name="balance" value={inputs.balance} onChange={handleChange} />}
                             {balance && <input type="number" name="balance" value={inputs.balance} onChange={handleChange} />}
                         </div>
                         <div className="names">
