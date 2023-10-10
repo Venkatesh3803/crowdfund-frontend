@@ -3,16 +3,16 @@ import { FcLike } from "react-icons/fc"
 import "./ProjectCard.css"
 import { Link } from "react-router-dom"
 import userImg from "../../images/user.png"
-import { imageUrl } from "../../requestMethods"
+
 
 const ProjectCard = ({ data }) => {
-    const PF = `${imageUrl}/images/`
+
 
     return (
         <div className="project-card">
             <div className="card-top">
                 <Link to={`/project/${data._id}`}>
-                    <img src={data.image ? PF + data.image : PF + userImg} alt="" />
+                    <img src={data.image ? data.image : userImg} alt="" />
                 </Link>
             </div>
             <div className="card-bottom">

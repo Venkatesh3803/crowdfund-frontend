@@ -1,16 +1,29 @@
-.about{
+.about {
     height: 80vh;
     width: 75%;
-    margin: 5rem auto ;
+    margin: 5rem auto;
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
 }
 
-.about p{
+.about p {
     color: aliceblue;
     font-size: 16px;
 }
-.about p b{
+
+.about p b {
     font-size: 18px;
+}
+
+@media screen and (max-width: 1080px) {
+    .about {
+        height: auto;
+    }
+}
+
+@media screen and (max-width: 780px) {
+    .about {
+        width: 95%;
+    }
 }

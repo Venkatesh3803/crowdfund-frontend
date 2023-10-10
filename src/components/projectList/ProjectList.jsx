@@ -3,6 +3,8 @@ import ProjectCard from '../projectCard/ProjectCard'
 import { AiOutlineSearch } from "react-icons/ai"
 import { useEffect, useState } from "react"
 import { publicRequest } from "../../requestMethods"
+
+
 const ProjectList = ({ profile, id }) => {
     const [project, setProject] = useState([])
     const [category, setCategory] = useState("")

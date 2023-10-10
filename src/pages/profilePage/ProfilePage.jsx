@@ -3,13 +3,14 @@ import ProjectList from '../../components/projectList/ProjectList'
 import Navber from '../../components/navber/Navber'
 import { AiOutlineEdit } from "react-icons/ai"
 import { useEffect, useState } from "react"
-import { imageUrl, publicRequest, userRequest } from "../../requestMethods"
+import { publicRequest, userRequest } from "../../requestMethods"
 import { useParams } from "react-router-dom"
 import userImage from "../../images/user.png"
 import { toast } from "react-toastify"
 import { FcCancel } from "react-icons/fc"
 import { useSelector } from "react-redux"
 import Footer from "../../components/footer/Footer"
+import axios from "axios"
 
 const ProfilePage = () => {
     const user = useSelector(state => state.auth.user)
@@ -18,31 +19,39 @@ const ProfilePage = () => {
     const { id } = useParams()
     const [inputs, setInputs] = useState({})
     const [image, setImage] = useState("")
-    const PF = `${imageUrl}/images/`
+
 
     const handleChange = (e) => {
         setInputs(prevState => ({ ...prevState, [e.target.name]: e.target.value }));
     }
 
+
+    const handleUploadImage = async (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            try {
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('upload_preset', 'crowdFunding');
+                const response = await axios.post(
+                    'https://api.cloudinary.com/v1_1/ddsepnnsm/image/upload',
+                    formData
+                );
+                const imageUrl = response.data.secure_url;
+                setImage(imageUrl);
+
+            } catch (err) {
+                console.log(err)
+            }
+
+        }
+    }
     const handleUpdate = async () => {
         const updated = {
             firstName: inputs.firstName,
             lastName: inputs.lastName,
             balance: inputs.balance,
-        }
-
-        if (image) {
-            const data = new FormData();
-            const fileName = Date.now() + image.name;
-            data.append("name", fileName);
-            data.append("file", image);
-            updated.image = fileName;
-
-            try {
-                await publicRequest.post("/upload", data)
-            } catch (err) {
-                console.log(err);
-            }
+            image: image,
         }
 
         const res = await userRequest.patch("/user", updated);
@@ -75,8 +84,8 @@ const ProfilePage = () => {
                         className="edit" />}
 
                     {editMode && <FcCancel onClick={() => setEditMode(false)} className="edit" />}
-                    {!editMode && <img src={inputs.image ? PF + inputs.image : userImage} alt="" />}
-                    {editMode && <input type="file" name="firstName" onChange={(e) => setImage(e.target.files[0])} />}
+                    {!editMode && <img src={inputs.image ? inputs.image : userImage} alt="" />}
+                    {editMode && <input type="file" name="firstName" onChange={handleUploadImage} />}
                     <div className="names">
                         <h4>First Name: -</h4>
                         {!editMode && <span>{inputs.firstName}</span>}

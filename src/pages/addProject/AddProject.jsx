@@ -1,7 +1,8 @@
 import { useState } from "react"
 import Navber from "../../components/navber/Navber"
 import "./AddProject.css"
-import { publicRequest, userRequest } from "../../requestMethods"
+import { userRequest } from "../../requestMethods"
+import axios from "axios"
 import { toast } from "react-toastify"
 import { useNavigate } from "react-router-dom"
 import { useSelector } from "react-redux"
@@ -16,6 +17,27 @@ const AddProject = () => {
         setInputs(prevState => ({ ...prevState, [e.target.name]: e.target.value }));
     }
 
+    const handleUploadImage = async (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            try {
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('upload_preset', 'crowdFunding');
+                const response = await axios.post(
+                    'https://api.cloudinary.com/v1_1/ddsepnnsm/image/upload',
+                    formData
+                );
+                const imageUrl = response.data.secure_url;
+                setImage(imageUrl);
+
+            } catch (err) {
+                console.log(err)
+            }
+
+        }
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -25,21 +47,8 @@ const AddProject = () => {
             description: inputs.description,
             goal: inputs.goal,
             numberOfDays: inputs.numberOfDays,
-            category: inputs.category
-        }
-
-        if (image) {
-            const data = new FormData();
-            const fileName = Date.now() + image.name;
-            data.append("name", fileName);
-            data.append("file", image);
-            newProject.image = fileName;
-
-            try {
-                await publicRequest.post("/upload", data)
-            } catch (err) {
-                console.log(err);
-            }
+            category: inputs.category,
+            image: image
         }
 
         try {
@@ -62,6 +71,7 @@ const AddProject = () => {
 
         }
     }
+
     return (
         <>
             <Navber />
@@ -87,7 +97,7 @@ const AddProject = () => {
                     </div>
                     <div className="add-inputs">
                         <label htmlFor="">Image</label>
-                        <input type="file" placeholder="Title" onChange={(e) => setImage(e.target.files[0])} required />
+                        <input type="file" placeholder="Title" onChange={handleUploadImage} required />
                     </div>
                     <div className="add-goal">
                         <div className="add-inputs">

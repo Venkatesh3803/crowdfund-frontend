@@ -2,7 +2,7 @@ import "./Project.css"
 import userImg from "../../images/user.png"
 import Donations from "../donations/Donations"
 import { useEffect, useState } from "react"
-import { imageUrl, publicRequest, userRequest } from "../../requestMethods"
+import { publicRequest, userRequest } from "../../requestMethods"
 import { Link, useParams } from "react-router-dom"
 import { toast } from "react-toastify"
 import { useSelector } from "react-redux"
@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom"
 const Project = ({ inputs, setInputs }) => {
     const user = useSelector(state => state.auth.user)
     const [donateUser, setDonateUser] = useState("")
-    const PF = `${imageUrl}/images/`
+
     const [userProfile, setUserProfile] = useState({})
     const [risedAmount, setRisedAmout] = useState(0)
     const { id } = useParams()
@@ -96,19 +96,6 @@ const Project = ({ inputs, setInputs }) => {
             goal: inputs.goal,
         }
 
-        if (image) {
-            const data = new FormData();
-            const fileName = Date.now() + image.name;
-            data.append("name", fileName);
-            data.append("file", image);
-            updated.image = fileName;
-
-            try {
-                await publicRequest.post("/upload", data)
-            } catch (err) {
-                console.log(err);
-            }
-        }
 
         const res = await userRequest.patch(`/project/${id}`, updated);
         if (res.status === 201) {
@@ -159,7 +146,7 @@ const Project = ({ inputs, setInputs }) => {
         <div className='project'>
             <div className="project-container">
                 <div className="project-left">
-                    <img src={inputs.image ? PF + inputs.image : ""} alt="" />
+                    <img src={inputs.image ? inputs.image : ""} alt="" />
                 </div>
                 <div className="project-right">
                     {editMode && <span className="cancel" onClick={() => setEditMode(false)}>X</span>}
@@ -178,7 +165,7 @@ const Project = ({ inputs, setInputs }) => {
 
                     <div className="user-profile">
                         <Link to={`/profile/${userProfile._id}`}>
-                            <img src={userProfile.image ? PF + userProfile.image : userImg} alt="" />
+                            <img src={userProfile.image ? userProfile.image : userImg} alt="" />
                         </Link>
                         <p>{userProfile?.firstName + userProfile?.lastName}</p>
                     </div>
