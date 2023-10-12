@@ -1,4 +1,5 @@
 import "./Project.css"
+import noImage from "../../images/noimage.avif"
 import userImg from "../../images/user.png"
 import Donations from "../donations/Donations"
 import { useEffect, useState } from "react"
@@ -20,7 +21,7 @@ const Project = ({ inputs, setInputs }) => {
     const [risedAmount, setRisedAmout] = useState(0)
     const { id } = useParams()
     const [editMode, setEditMode] = useState(false)
-    const [image, setImage] = useState(false)
+    const [donation, setDonation] = useState([])
     const navigate = useNavigate()
 
 
@@ -53,6 +54,21 @@ const Project = ({ inputs, setInputs }) => {
     }, [user._id])
 
 
+
+    useEffect(() => {
+        const fetchingDontaions = async () => {
+            try {
+                const res = await publicRequest.get(`/donation/list?projectid=${id}`)
+                setDonation(res.data)
+
+            } catch (error) {
+                return error
+            }
+        }
+        fetchingDontaions()
+    }, [id])
+
+
     const handleDonation = async (e) => {
         e.preventDefault();
         if (!user) {
@@ -69,8 +85,6 @@ const Project = ({ inputs, setInputs }) => {
             return toast.warn("You don't have Suffient Balance Please Add Balance")
         }
 
-
-
         try {
             const res = await userRequest.post(`/donation/${id}`, {
                 userId: user._id,
@@ -78,12 +92,19 @@ const Project = ({ inputs, setInputs }) => {
                 risedAmount: parseInt(risedAmount),
                 email: user.email
             })
+
+            setDonation([...donation, res.data])
             if (res.status === 201) {
                 toast.success("donated Sucessfully")
                 setRisedAmout("")
             }
         } catch (error) {
-            return error
+            if (error.response.data === "jwt expired") {
+                toast.warning("Session expired")
+            }
+            if (error.response.data === "jwt malformed") {
+                toast.warning("something went wrong refresh page and try again")
+            }
         }
 
     }
@@ -123,7 +144,7 @@ const Project = ({ inputs, setInputs }) => {
                                 window.location.replace("/")
                             }
                         } catch (error) {
-                            console.log(error.response.data)
+
                             if (error.response.data === "jwt expired") {
                                 toast.warn("Session Expired")
                                 navigate("/");
@@ -146,7 +167,7 @@ const Project = ({ inputs, setInputs }) => {
         <div className='project'>
             <div className="project-container">
                 <div className="project-left">
-                    <img src={inputs.image ? inputs.image : ""} alt="" />
+                    <img src={inputs.image ? inputs.image : noImage} alt="" />
                 </div>
                 <div className="project-right">
                     {editMode && <span className="cancel" onClick={() => setEditMode(false)}>X</span>}
@@ -192,7 +213,7 @@ const Project = ({ inputs, setInputs }) => {
                     </div>
                 </div>
             </div>
-            <Donations data={inputs} />
+            <Donations donation={donation} />
         </div>
     )
 }

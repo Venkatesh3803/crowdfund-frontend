@@ -97,7 +97,7 @@ const AddProject = () => {
                     </div>
                     <div className="add-inputs">
                         <label htmlFor="">Image</label>
-                        <input type="file" placeholder="Title" onChange={handleUploadImage} required />
+                        <input type="file" placeholder="Title" onChange={handleUploadImage}  />
                     </div>
                     <div className="add-goal">
                         <div className="add-inputs">

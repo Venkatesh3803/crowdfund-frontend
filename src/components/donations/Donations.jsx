@@ -1,25 +1,11 @@
-import { useParams } from "react-router-dom"
+
 import "./Donations.css"
-import { useEffect, useState } from "react"
-import { publicRequest } from "../../requestMethods"
+
 import moment from "moment"
 
-const Donations = () => {
-    const { id } = useParams()
-    const [donation, setDonation] = useState([])
-    useEffect(() => {
-        const fetchingDontaions = async () => {
-            try {
-                const res = await publicRequest.get(`/donation/list?projectid=${id}`)
-                setDonation(res.data)
-            } catch (error) {
-                return error
-            }
-        }
-        fetchingDontaions()
-    }, [id])
+const Donations = ({donation}) => {
 
-
+    
     return (
         <div className='donations'>
             <table>
@@ -33,7 +19,7 @@ const Donations = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {donation.map((d) => {
+                    {donation?.map((d) => {
                         return (
                             <tr key={d._id}>
                                 <td>{d._id}</td>

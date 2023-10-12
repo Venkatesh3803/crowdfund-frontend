@@ -53,13 +53,22 @@ const ProfilePage = () => {
             balance: inputs.balance,
             image: image,
         }
-
-        const res = await userRequest.patch("/user", updated);
-        if (res.status === 201) {
-            toast.success("updated Sucessfully")
+        try {
+            const res = await userRequest.patch("/user", updated);
+            if (res.status === 201) {
+                toast.success("updated Sucessfully")
+            }
+            setEditMode(false)
+            setBalance(false)
+        } catch (error) {
+            if (error.response.data === "jwt expired") {
+                toast.warning("Session expired please login again")
+            }
+            if (error.response.data === "jwt malformed") {
+                toast.warning("something went wrong refresh page and try again")
+            }
         }
-        setEditMode(false)
-        setBalance(false)
+
     }
 
 

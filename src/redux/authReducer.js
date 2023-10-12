@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 
 
 const initialState = {
-  user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : "",
+  user: localStorage.getItem("user") ? JSON.parse(sessionStorage.getItem("user")) : "",
   sucess: false,
   error: false,
   isLoading: false,
@@ -59,7 +59,8 @@ export const authSlice = createSlice({
       state.user = "";
       state.error = false;
       state.isLoading = false
-      localStorage.removeItem("user")
+      localStorage.clear()
+
     }
   }
 })
