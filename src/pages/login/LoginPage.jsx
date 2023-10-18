@@ -20,6 +20,11 @@ const LoginPage = () => {
     }
     return (
         <div className="login">
+            <button>
+                <Link to={"/"} className="link">
+                    Back to home
+                </Link>
+            </button>
             <form action="" onSubmit={handleSubmit}>
                 <h2 style={{ textAlign: "center" }}>Login in</h2>
                 <div className="inputs">

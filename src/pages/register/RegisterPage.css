@@ -6,7 +6,7 @@
     height: 100vh;
 }
 
-.register span{
+.register span {
     margin-bottom: 1rem;
     font-size: larger;
 }
@@ -53,6 +53,17 @@ form button {
 
 form button:hover {
     background-color: rgb(15, 153, 203);
+}
+
+.register>button {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    padding: 0.5rem 1rem;
+    background-color: orange;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
 }
 
 @media screen and (max-width : 780px) {

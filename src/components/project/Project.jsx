@@ -51,7 +51,7 @@ const Project = ({ inputs, setInputs }) => {
             }
         }
         fetchingProfile()
-    }, [user._id])
+    }, [user?._id])
 
 
 

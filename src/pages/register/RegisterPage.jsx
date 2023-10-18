@@ -24,6 +24,11 @@ const RegisterPage = () => {
 
     return (
         <div className="register">
+            <button>
+                <Link to={"/"} className="link">
+                    Back to home
+                </Link>
+            </button>
             <span> Sign Up and Get ₹5000 Bonous</span>
             <form action="" onSubmit={handleSubmit}>
                 <h2 style={{ textAlign: "center" }}>Sign Up</h2>

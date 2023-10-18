@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 
 
 const initialState = {
-  user: localStorage.getItem("user") ? JSON.parse(sessionStorage.getItem("user")) : "",
+  user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : "",
   sucess: false,
   error: false,
   isLoading: false,

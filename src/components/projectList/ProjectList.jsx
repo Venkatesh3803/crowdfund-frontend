@@ -42,7 +42,7 @@ const ProjectList = ({ profile, id }) => {
             }
 
 
-            {project.length === 0 && <span style={{marginTop:"2rem"}}>NO Projects Found</span>}
+            {project.length === 0 && <span style={{marginTop:"2rem"}}>No Projects Found</span>}
             <div className="project-list-container">
                 {project.map((p) => {
                     return (
