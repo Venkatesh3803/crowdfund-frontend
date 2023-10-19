@@ -1,8 +1,8 @@
 import axios from "axios";
 
 
-const BASE_URL = "https://crowdfunding-backed.onrender.com/api"
-// const BASE_URL = "http://localhost:5500/api"
+// const BASE_URL = "https://crowdfunding-backed.onrender.com/api"
+const BASE_URL = "http://localhost:5500/api"
 
 // export const imageUrl = "https://crowdfunding-backed.onrender.com"
 // export const imageUrl = "http://localhost:5500"
@@ -18,6 +18,5 @@ export const publicRequest = axios.create({
 
 export const userRequest = axios.create({
     baseURL: BASE_URL,
-    headers: { token: `Bearer ${TOKEN}` },
-
+    headers: { Authorization: `Bearer ${TOKEN}` },
 });

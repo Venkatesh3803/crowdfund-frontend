@@ -54,16 +54,17 @@ const AddProject = () => {
         try {
             let res = await userRequest.post("/project", newProject)
 
-            console.log(res.status)
-            if (res.status === 401) {
-                toast.warn("Session expired")
-                navigate("/login")
-            } else {
-                console.log("other than 201")
+            if (res.status === 201) {
                 toast.success("posted sucessful")
             }
-        } catch (error) {
 
+        } catch (error) {
+         
+            if (error.response.data === "jwt expired") {
+                toast.warn("Session expired")
+                navigate("/login")
+            }
+            
             if (error.response.data === "jwt malformed") {
                 toast.warn("Opps something went, Refresh page and try again")
             }
@@ -97,7 +98,7 @@ const AddProject = () => {
                     </div>
                     <div className="add-inputs">
                         <label htmlFor="">Image</label>
-                        <input type="file" placeholder="Title" onChange={handleUploadImage}  />
+                        <input type="file" placeholder="Title" onChange={handleUploadImage} />
                     </div>
                     <div className="add-goal">
                         <div className="add-inputs">
