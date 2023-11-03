@@ -3,7 +3,6 @@ import { FcLike } from "react-icons/fc"
 import "./ProjectCard.css"
 import { Link } from "react-router-dom"
 import noImage from "../../images/noimage.avif"
-import moment from "moment"
 
 
 const ProjectCard = ({ data }) => {
@@ -29,7 +28,7 @@ const ProjectCard = ({ data }) => {
                 <div className="supporter">
                     <div className="left-days">
                         <AiOutlineClockCircle />
-                        <span>{moment().endOf("days").fromNow()}</span>
+                        <span>{data.numberOfDays} days left</span>
                     </div>
                     <div className="left-days">
                         <FcLike />
