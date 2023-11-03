@@ -20,7 +20,7 @@ const ProjectList = ({ profile, id }) => {
     }, [id, category, search])
 
     return (
-        <div className='project-list'>
+        <div id="projects" className='project-list'>
             {!profile &&
                 <>
                     <h1>Trending Fundraisers</h1>

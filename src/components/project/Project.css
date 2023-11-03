@@ -32,18 +32,8 @@
 }
 
 .cancel {
-    position: absolute;
-    right: 0px;
-    top: -2rem;
-    font-size: 20px;
-    font-weight: 600;
-    background-color: bisque;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    text-align: center;
-    color: black;
-    cursor: pointer;
+  background-color: orange;
+  color: white;
 }
 
 .donated-amount {
@@ -91,6 +81,11 @@
 
 .project-inputs {
     background-color: transparent;
+    color: white;
+}
+
+.delete{
+    background-color: red;
     color: white;
 }
 

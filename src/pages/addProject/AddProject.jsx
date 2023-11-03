@@ -1,17 +1,15 @@
 import { useState } from "react"
 import Navber from "../../components/navber/Navber"
 import "./AddProject.css"
-import { userRequest } from "../../requestMethods"
+import { creatingProject } from "../../requestMethods"
 import axios from "axios"
 import { toast } from "react-toastify"
-import { useNavigate } from "react-router-dom"
 import { useSelector } from "react-redux"
 
 const AddProject = () => {
     const user = useSelector(state => state.auth.user)
     const [inputs, setInputs] = useState({})
     const [image, setImage] = useState("")
-    const navigate = useNavigate()
 
     const handleChange = (e) => {
         setInputs(prevState => ({ ...prevState, [e.target.name]: e.target.value }));
@@ -50,27 +48,25 @@ const AddProject = () => {
             category: inputs.category,
             image: image
         }
+        let token = JSON.parse(localStorage.getItem("token"))
 
-        try {
-            let res = await userRequest.post("/project", newProject)
 
-            if (res.status === 201) {
+        creatingProject("/project", "POST", newProject, token)
+            .then((response) => {
                 toast.success("posted sucessful")
-            }
+            })
+            .catch((error) => {
 
-        } catch (error) {
-         
-            if (error.response.data === "jwt expired") {
-                toast.warn("Session expired")
-                navigate("/login")
-            }
-            
-            if (error.response.data === "jwt malformed") {
-                toast.warn("Opps something went, Refresh page and try again")
-            }
-            return error.message
+                if (error === "jwt expired") {
+                    toast.warn("Session expired")
+                }
+                if (error === "jwt malformed") {
+                    toast.warn("Opps something went, Refresh page and try again")
+                }
+                console.log(error)
+            })
 
-        }
+
     }
 
     return (
@@ -98,7 +94,7 @@ const AddProject = () => {
                     </div>
                     <div className="add-inputs">
                         <label htmlFor="">Image</label>
-                        <input type="file" placeholder="Title" onChange={handleUploadImage} />
+                        <input type="file" onChange={handleUploadImage} />
                     </div>
                     <div className="add-goal">
                         <div className="add-inputs">

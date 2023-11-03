@@ -3,26 +3,23 @@ import noImage from "../../images/noimage.avif"
 import userImg from "../../images/user.png"
 import Donations from "../donations/Donations"
 import { useEffect, useState } from "react"
-import { publicRequest, userRequest } from "../../requestMethods"
+import { deleteProject, editProject, makingDonation, publicRequest } from "../../requestMethods"
 import { Link, useParams } from "react-router-dom"
 import { toast } from "react-toastify"
 import { useSelector } from "react-redux"
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
-import { useNavigate } from "react-router-dom"
 
 
 
 const Project = ({ inputs, setInputs }) => {
     const user = useSelector(state => state.auth.user)
     const [donateUser, setDonateUser] = useState("")
-
     const [userProfile, setUserProfile] = useState({})
     const [risedAmount, setRisedAmout] = useState(0)
     const { id } = useParams()
     const [editMode, setEditMode] = useState(false)
     const [donation, setDonation] = useState([])
-    const navigate = useNavigate()
 
 
     const handleChange = (e) => {
@@ -85,28 +82,30 @@ const Project = ({ inputs, setInputs }) => {
             return toast.warn("You don't have Suffient Balance Please Add Balance")
         }
 
-        try {
-            const res = await userRequest.post(`/donation/${id}`, {
-                userId: user._id,
-                projectId: id,
-                risedAmount: parseInt(risedAmount),
-                email: user.email
-            })
+        let token = JSON.parse(localStorage.getItem("token"))
 
-            setDonation([...donation, res.data])
-            if (res.status === 201) {
-                toast.success("donated Sucessfully")
-                setRisedAmout("")
-            }
-        } catch (error) {
-            if (error.response.data === "jwt expired") {
-                toast.warning("Session expired")
-            }
-            if (error.response.data === "jwt malformed") {
-                toast.warning("something went wrong refresh page and try again")
-            }
+        let donation = {
+            userId: user._id,
+            projectId: id,
+            risedAmount: parseInt(risedAmount),
+            email: user.email
         }
 
+        makingDonation(`/donation/${id}`, 'POST', donation, token)
+            .then((response) => {
+                setDonation(prev => [...prev, response])
+                toast.success("Donated sucessfully")
+                setRisedAmout(0)
+            })
+            .catch((error) => {
+                if (error === "jwt expired") {
+                    toast.warning("Session expired please login again")
+                }
+                if (error === "jwt malformed") {
+                    toast.warning("something went wrong refresh page and try again")
+                }
+
+            });
     }
 
     const handleUpdate = async () => {
@@ -116,18 +115,28 @@ const Project = ({ inputs, setInputs }) => {
             description: inputs.description,
             goal: inputs.goal,
         }
+        let token = JSON.parse(localStorage.getItem("token"))
 
+        editProject(`/project/${id}`, "PATCH", updated, token)
+            .then((response) => {
+                toast.success("Updated sucessfully")
+            }).catch((error) => {
+                if (error === "jwt expired") {
+                    toast.warning("Session expired please login again")
+                }
+                if (error === "jwt malformed") {
+                    toast.warning("something went wrong refresh page and try again")
+                }
 
-        const res = await userRequest.patch(`/project/${id}`, updated);
-        if (res.status === 201) {
-            toast.success("updated Sucessfully")
-        }
+            });
         setEditMode(false)
     }
 
 
     const handleDelete = async (id) => {
+        let token = JSON.parse(localStorage.getItem("token"))
 
+        let body = { userId: user._id }
         confirmAlert({
             title: 'Confirm to Delete Project',
             message: 'Are you sure to Delete.',
@@ -135,23 +144,16 @@ const Project = ({ inputs, setInputs }) => {
                 {
                     label: 'Yes',
                     onClick: async () => {
-                        try {
-                            const res = await userRequest.delete(`/project/${id}`, {
-                                userId: user._id,
-                            });
-                            if (res.status === 200) {
-                                toast.success("Deleted Sucessfully")
+                        deleteProject(`/project/${id}`, "DELETE", body, token)
+                            .then((response) => {
+                                if (response === "Deleted") {
+                                    toast.success("Deleted Sucessfully")
+                                }
                                 window.location.replace("/")
-                            }
-                        } catch (error) {
-
-                            if (error.response.data === "jwt expired") {
-                                toast.warn("Session Expired")
-                                navigate("/");
-                                localStorage.removeItem("user")
-                                localStorage.removeItem("token")
-                            }
-                        }
+                            })
+                            .catch((error) => {
+                                toast.warn(error)
+                            })
                     }
                 },
                 {
@@ -170,15 +172,14 @@ const Project = ({ inputs, setInputs }) => {
                     <img src={inputs.image ? inputs.image : noImage} alt="" />
                 </div>
                 <div className="project-right">
-                    {editMode && <span className="cancel" onClick={() => setEditMode(false)}>X</span>}
+      
 
                     {/* title */}
-                    {editMode && <input type="text" className="project-inputs" value={inputs.title} name="title" onChange={handleChange} />}
-                    {!editMode && <h2>{inputs.title}</h2>}
+                    {!editMode ? <h2>{inputs.title}</h2> : <input type="text" className="project-inputs" value={inputs.title} name="title" onChange={handleChange} />}
+
 
                     {/* description */}
-                    {editMode && <textarea rows={5} cols={10} className="project-inputs" value={inputs.description} name="description" onChange={handleChange} />}
-                    {!editMode && <p>{inputs.description}</p>}
+                    {!editMode ? <p>{inputs.description}</p> : <textarea rows={5} cols={10} className="project-inputs" value={inputs.description} name="description" onChange={handleChange} />}
 
                     {/* Noof days */}
 
@@ -192,24 +193,30 @@ const Project = ({ inputs, setInputs }) => {
                     </div>
 
                     <div className="progress-bar">
-                        <div className="percent" style={{ width: `${Math.floor((inputs.risedAmount / inputs.goal) * 100)}%` }}></div>
+                        <div className="percent" style={{ width: `${Math.floor((inputs.risedAmount / inputs.goal) * 100)}` < 100 ? `${Math.floor((inputs.risedAmount / inputs.goal) * 100)}%` : "100%" }}></div>
                         <div className="donated-amount">
                             <h4>₹{inputs.risedAmount}</h4>
-                            {editMode && <input type="number" className="project-inputs" value={inputs.goal} name="goal" onChange={handleChange} />}
-                            {!editMode && <h4>₹{inputs.goal}</h4>}
+                            {!editMode ? <h4>₹{inputs.goal}</h4> : <input type="number" className="project-inputs" value={inputs.goal} name="goal" onChange={handleChange} />}
                         </div>
                     </div>
 
                     <div className="project-btns">
                         {user?._id === inputs.userId &&
                             <>
-                                {editMode ? <button onClick={handleUpdate}>Update</button> : <button onClick={() => setEditMode(true)}>Edit</button>}
-                                <button onClick={() => handleDelete(inputs._id)}>Delete</button>
+                                {editMode ? <button className="btn" onClick={handleUpdate}>Update</button> : <button className="btn" onClick={() => setEditMode(true)}>Edit</button>}
+                                {editMode && <button className="cancel" onClick={() => setEditMode(false)}>Cancel</button>}
+                                {!editMode &&
+                                    <button className="delete" onClick={() => handleDelete(inputs._id)}>Delete</button>
+                                }
                             </>
                         }
-                        <input type="number" placeholder="₹ Amount to Donate" required onChange={(e) => setRisedAmout(e.target.value)} />
 
-                        <button onClick={handleDonation}>Donate</button>
+                        {!editMode &&
+                            <>
+                                <input type="number" placeholder="₹ Amount to Donate" value={risedAmount} required onChange={(e) => setRisedAmout(e.target.value)} />
+                                <button className="btn" onClick={handleDonation}>Donate</button>
+                            </>
+                        }
                     </div>
                 </div>
             </div>

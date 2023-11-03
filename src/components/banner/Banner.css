@@ -1,0 +1,54 @@
+.banner {
+    background-color: rgb(10, 71, 125);
+    height: 80vh;
+}
+
+.banner-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 80%;
+    margin: auto;
+}
+
+.banner-heading {
+    padding: 3rem;
+    font-weight: 600;
+    text-align: center;
+    font-size: 30px;
+}
+
+.explantion {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    font-size: 18px;
+    margin: 1.5rem 0;
+}
+
+.banner-img {
+    flex: 1;
+}
+
+.banner-img img {
+    width: 100%;
+    object-fit: cover;
+}
+
+@media screen and (max-width:1080px) {
+    .banner {
+        height: auto;
+    }
+
+    .banner-container {
+        flex-direction: column-reverse;
+    }
+
+}
+@media screen and (max-width:780px) {
+   .explantion{
+    font-size: 16px;
+   }
+
+}

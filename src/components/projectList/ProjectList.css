@@ -68,8 +68,10 @@ select option {
 }
 
 @media screen and (max-width:780px) {
+    .project-list {
+        width: 90%;
+    }
 
-    
     .filters select {
         width: 40%;
         padding: 0.2rem;
@@ -80,4 +82,3 @@ select option {
         width: 50%;
     }
 }
-

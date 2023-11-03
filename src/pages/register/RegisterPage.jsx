@@ -14,12 +14,19 @@ const RegisterPage = () => {
     const [password, setPassword] = useState("")
     const [conformPass, setConformPass] = useState("")
 
+    const reset = () => {
+        setEmail("");
+        setFirstName("");
+        setLastName("");
+        setPassword("");
+        setConformPass("")
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault()
         if (password !== conformPass) return toast.warn("password does not match")
-
         register(dispatch, { firstName, lastName, email, password })
-
+        reset()
     }
 
     return (
@@ -35,24 +42,24 @@ const RegisterPage = () => {
                 <div className="first-name">
                     <div className="inputs">
                         <label htmlFor="">First Name</label>
-                        <input type="text" placeholder="First Name" required onChange={(e) => setFirstName(e.target.value)} />
+                        <input type="text" placeholder="First Name" value={firstName} required onChange={(e) => setFirstName(e.target.value)} />
                     </div>
                     <div className="inputs">
                         <label htmlFor="">Last Name</label>
-                        <input type="text" placeholder="Last Name" required onChange={(e) => setLastName(e.target.value)} />
+                        <input type="text" placeholder="Last Name" value={lastName} required onChange={(e) => setLastName(e.target.value)} />
                     </div>
                 </div>
                 <div className="inputs">
                     <label htmlFor="email">Email</label>
-                    <input type="email" name="" id="email" required placeholder="example@gamil.com" onChange={(e) => setEmail(e.target.value)} />
+                    <input type="email" name="" id="email" value={email} required placeholder="example@gamil.com" onChange={(e) => setEmail(e.target.value)} />
                 </div>
                 <div className="inputs">
                     <label htmlFor="password">passsword</label>
-                    <input type="password" name="" id="password" required minLength={6} placeholder="password" onChange={(e) => setPassword(e.target.value)} />
+                    <input type="password" name="" id="password" value={password} required minLength={6} placeholder="password" onChange={(e) => setPassword(e.target.value)} />
                 </div>
                 <div className="inputs">
                     <label htmlFor="conform password">conform passsword</label>
-                    <input type="password" name="" id="conform password" placeholder="password" onChange={(e) => setConformPass(e.target.value)} />
+                    <input type="password" name="" id="conform password" value={conformPass} placeholder="password" onChange={(e) => setConformPass(e.target.value)} />
                 </div>
                 <Link to={"/login"} className="link">
                     <p>Already have Account! Login</p>

@@ -35,7 +35,8 @@ const Footer = () => {
                     </ul>
                 </div>
             </div>
-            <span></span>
+            <hr />
+            <span className="copyright">© 2023 - 2033 WethePeople. All rights reserved.</span>
         </div>
     )
 }

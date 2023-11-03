@@ -1,12 +1,10 @@
 import axios from "axios";
 
 
-const BASE_URL = "https://crowdfunding-backed.onrender.com/api"
-// const BASE_URL = "http://localhost:5500/api"
+// const BASE_URL = "https://crowdfunding-backed.onrender.com/api"
+export const BASE_URL = "http://localhost:5500/api"
 
 
-
-const TOKEN = localStorage.getItem("token") ? JSON.parse(localStorage.getItem("token")) :"blank";
 
 
 export const publicRequest = axios.create({
@@ -14,7 +12,113 @@ export const publicRequest = axios.create({
 });
 
 
-export const userRequest = axios.create({
-    baseURL: BASE_URL,
-    headers: { Authorization: `Bearer ${TOKEN}` },
-});
+
+
+
+
+export const updateUser = async (endpoint, method, data, token) => {
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+    };
+
+    const config = {
+        method,
+        url: `${BASE_URL}${endpoint}`,
+        headers,
+        data,
+    };
+
+    try {
+        const response = await axios(config);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+
+export const makingDonation = async (endpoint, method, data, token) => {
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+    };
+
+    const config = {
+        method,
+        url: `${BASE_URL}${endpoint}`,
+        headers,
+        data,
+    };
+
+    try {
+        const response = await axios(config);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const editProject = async (endpoint, method, data, token) => {
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+    };
+
+    const config = {
+        method,
+        url: `${BASE_URL}${endpoint}`,
+        headers,
+        data,
+    };
+
+    try {
+        const response = await axios(config);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const deleteProject = async (endpoint, method, data, token) => {
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+    };
+
+    const config = {
+        method,
+        url: `${BASE_URL}${endpoint}`,
+        headers,
+        data,
+    };
+
+    try {
+        const response = await axios(config);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+
+export const creatingProject = async (endpoint, method, data, token) => {
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+    };
+
+    const config = {
+        method,
+        url: `${BASE_URL}${endpoint}`,
+        headers,
+        data,
+    };
+
+    try {
+        const response = await axios(config);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};

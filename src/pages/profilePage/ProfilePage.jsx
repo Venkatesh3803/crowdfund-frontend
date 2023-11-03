@@ -2,8 +2,8 @@ import "./ProfilePage.css"
 import ProjectList from '../../components/projectList/ProjectList'
 import Navber from '../../components/navber/Navber'
 import { AiOutlineEdit } from "react-icons/ai"
-import { useEffect, useState } from "react"
-import { publicRequest, userRequest } from "../../requestMethods"
+import { useEffect, useRef, useState } from "react"
+import { publicRequest, updateUser } from "../../requestMethods"
 import { useParams } from "react-router-dom"
 import userImage from "../../images/user.png"
 import { toast } from "react-toastify"
@@ -19,7 +19,7 @@ const ProfilePage = () => {
     const { id } = useParams()
     const [inputs, setInputs] = useState({})
     const [image, setImage] = useState("")
-
+    const imgRef = useRef()
 
     const handleChange = (e) => {
         setInputs(prevState => ({ ...prevState, [e.target.name]: e.target.value }));
@@ -46,36 +46,49 @@ const ProfilePage = () => {
 
         }
     }
+
+
     const handleUpdate = async () => {
         const updated = {
             firstName: inputs.firstName,
             lastName: inputs.lastName,
             balance: inputs.balance,
-            image: image,
+            image: image ? image : inputs.image,
         }
-        try {
-            const res = await userRequest.patch("/user", updated);
-            if (res.status === 201) {
-                toast.success("updated Sucessfully")
-            }
-            setEditMode(false)
-            setBalance(false)
-        } catch (error) {
-            if (error.response.data === "jwt expired") {
-                toast.warning("Session expired please login again")
-            }
-            if (error.response.data === "jwt malformed") {
-                toast.warning("something went wrong refresh page and try again")
-            }
-        }
+        const token = JSON.parse(localStorage.getItem("token"))
 
+        updateUser('/user', 'PATCH', updated, token)
+            .then((response) => {
+                if (response) {
+                    toast.success("updated sucessfully")
+                    setEditMode(false)
+                    setBalance(false)
+                }
+            })
+            .catch((error) => {
+                if (error === "jwt expired") {
+                    toast.warning("Session expired please login again")
+                }
+                if (error === "jwt malformed") {
+                    toast.warning("something went wrong refresh page and try again")
+                }
+
+            });
     }
 
 
     useEffect(() => {
         const fetchingUser = async () => {
-            const res = await publicRequest.get(`/user/single/${id}`)
-            setInputs(res.data)
+            try {
+                const res = await publicRequest.get(`/user/single/${id}`)
+                setInputs(res.data)
+            } catch (error) {
+                if (error.message === "wt expired") {
+                    localStorage.clear()
+                } else {
+                    return error.message
+                }
+            }
         }
         fetchingUser()
     }, [id])
@@ -93,33 +106,38 @@ const ProfilePage = () => {
                         className="edit" />}
 
                     {editMode && <FcCancel onClick={() => setEditMode(false)} className="edit" />}
-                    {!editMode && <img src={inputs.image ? inputs.image : userImage} alt="" />}
-                    {editMode && <input type="file" name="firstName" onChange={handleUploadImage} />}
+
+                    {!editMode ? <img src={image ? image : inputs.image ? inputs.image : userImage} alt="" /> :
+                        <>
+                            <img src={image ? image : inputs.image ? inputs.image : userImage} style={{ cursor: "pointer" }} onClick={() => imgRef.current.click()} alt="" />
+                            <input type="file" name="firstName" ref={imgRef} hidden onChange={handleUploadImage} />
+                        </>
+                    }
                     <div className="names">
                         <h4>First Name: -</h4>
-                        {!editMode && <span>{inputs.firstName}</span>}
-                        {editMode && <input type="text" name="firstName" value={inputs.firstName} onChange={handleChange} />}
+                        {!editMode ? <span>{inputs.firstName}</span> : <input type="text" name="firstName" value={inputs.firstName} onChange={handleChange} />}
+
                     </div>
                     <div className="names">
                         <h4>Last Name: -</h4>
-                        {!editMode && <span>{inputs.lastName}</span>}
-                        {editMode && <input type="text" name="lastName" value={inputs.lastName} onChange={handleChange} />}
+                        {!editMode ? <span>{inputs.lastName}</span> : <input type="text" name="lastName" value={inputs.lastName} onChange={handleChange} />}
+
                     </div>
                     <div className="names">
                         <h4>Email: -</h4>
-                        {!editMode && <span>{inputs.email}</span>}
-                        {editMode && <span>{inputs.email}</span>}
+                        {!editMode ? <span>{inputs.email}</span> : <span>{inputs.email}</span>}
+
                     </div>
                     <div style={{ display: "flex", alignItems: "center", gap: "2rem" }}>
-                        <div className="names">
-                            <h4>Balance: -</h4>
-                            {!editMode && !balance && <span>{inputs.balance}</span>}
-                            {editMode && <input type="number" name="balance" value={inputs.balance} onChange={handleChange} />}
-                            {balance && <input type="number" name="balance" value={inputs.balance} onChange={handleChange} />}
-                        </div>
+                        {id === user?._id ?
+                            <div className="names">
+                                <h4>Balance: -</h4>
+                                {!editMode && !balance ? <span>{inputs.balance}</span> : <input type="number" name="balance" value={inputs.balance} onChange={handleChange} />}
+                            </div>
+                            : ""}
                         <div className="names">
                             {id === user?._id && !balance && !editMode && <button onClick={() => setBalance(true)} className="btn"> Add </button>}
-                            {balance && <button onClick={handleUpdate} className="btn"> Submit </button>}
+                            {!editMode && balance && <button onClick={handleUpdate} className="btn"> Submit </button>}
                         </div>
                     </div>
 

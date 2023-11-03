@@ -40,7 +40,7 @@
     text-align: start;
 }
 
-.content button {
+.content button  {
     width: fit-content;
     padding: 0.8rem 3rem;
     background-color: rgb(251, 122, 144);

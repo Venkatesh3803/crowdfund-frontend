@@ -19,6 +19,7 @@ const Navber = () => {
         toast.success("LogOut Sucess")
 
     }
+    
     return (
         <>
             <nav>
@@ -26,7 +27,7 @@ const Navber = () => {
 
                     <h2 className="logo">
                         <Link to={"/"} className="link">
-                            <span>Crowd</span> Funding
+                            <span>We The</span> People
                         </Link>
                     </h2>
 
