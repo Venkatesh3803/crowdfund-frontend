@@ -70,9 +70,10 @@
     cursor: pointer;
 }
 
-.project-right input {
+.project-right input, .project-right textarea {
     padding: 0.5rem;
     border-radius: 4px;
+    color: black;
 }
 
 .number {

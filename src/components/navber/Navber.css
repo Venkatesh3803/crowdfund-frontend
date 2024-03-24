@@ -1,13 +1,18 @@
 nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 8vh;
-    padding: 0.5rem 2rem;
-    background-color: rgb(34, 7, 186);
+    background-color: #F9F4E8;
     position: sticky;
     top: 0;
     z-index: 99;
+    color: black;
+}
+
+.nav-container {
+    height: 8vh;
+    width: 80%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .logo {
@@ -17,7 +22,7 @@ nav {
 }
 
 .logo span {
-    color: rgb(40, 233, 43);
+    color: rgb(0, 113, 93);
 }
 
 
@@ -39,7 +44,7 @@ nav {
 .add-btns button {
     padding: 0.5rem 1rem;
     border-radius: 4px;
-    background-color: darkcyan;
+    background-color: rgb(0, 113, 93);
     color: white;
     font-size: 15px;
     border: none;
@@ -56,8 +61,8 @@ nav {
     color: black;
     font-weight: 600;
     cursor: pointer;
-    border-radius: 50%;
-    background-color: rgb(47, 255, 85);
+    border-radius: 50%;color: white;
+    background-color: rgb(0, 113, 93);
 }
 
 .profile-menu {
@@ -65,7 +70,8 @@ nav {
     width: 200px;
     top: 35px;
     right: 15px;
-    background-color: rgb(147, 152, 151);
+    background-color: rgb(0, 113, 93);
+    color: white;
     border-radius: 8px;
 }
 
@@ -85,7 +91,7 @@ nav {
 }
 
 .profile-menu ul :hover {
-    background-color: rgb(110, 116, 114);
+    background-color: rgb(17, 198, 165);
     border-radius: 6px;
 }
 
@@ -103,7 +109,7 @@ nav {
         font-size: 14px;
     }
 
-.nav-right span{
-    font-size: 16px;
-}
+    .nav-right span {
+        font-size: 16px;
+    }
 }

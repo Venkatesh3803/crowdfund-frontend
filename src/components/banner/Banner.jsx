@@ -11,7 +11,6 @@ const Banner = () => {
                    <p>With donation-based crowdfunding, getting financial help for patients in India is convenient and reliable. Unlike medical loans and insurance, fundraising via online crowdfunding platforms requires no liability to pay back the funds raised. So, all the amount generated can be used to cover the cost of emergency medical treatment.</p>
                 </div>
                 <div className="banner-img">
-
                     <img src="https://www.gofundme.com/en-gb/c/wp-content/uploads/sites/11/2021/06/2020-Figures-3.png" alt="" />
                 </div>
             </div>

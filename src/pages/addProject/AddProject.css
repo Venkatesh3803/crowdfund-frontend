@@ -33,6 +33,7 @@ textarea {
     gap: 2rem;
 }
 
+
 @media screen and (max-width : 780px) {
     .add-project form{
         width: 80%;
