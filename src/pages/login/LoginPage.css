@@ -5,10 +5,39 @@
     height: 100vh;
 }
 
-form {
-    width: 26%;
-    border: 1px solid gray;
+.login-container {
+    width: 90%;
+    height: 95%;
+    display: flex;
+}
+
+.l-left {
+    flex: 1;
+    background-image: url("../../images/login.jpg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.l-right {
+    flex: 0.8;
+    display: flex;
     padding: 2rem;
+    justify-content: center;
+    flex-direction: column;
+}
+
+
+.l-right .welcome {
+    color: rgb(123, 124, 125);
+    font-size: larger;
+    width: 70%;
+
+}
+
+form {
+    width: 75%;
+    padding: 2rem 0;
     border-radius: 6px;
     display: flex;
     gap: 1rem;
@@ -44,20 +73,45 @@ form button {
 form button:hover {
     background-color: rgb(15, 153, 203);
 }
-.login>button {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    padding: 0.5rem 1rem;
-    background-color: orange;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
+
+
+
+
+@media screen and (max-width : 1080px) {
+    .login form {
+        width: 100%;
+    }
+
+    .welcome {
+        width: 80%;
+    }
 }
 
-
 @media screen and (max-width : 780px) {
-   .login form {
-        width: 60%;
+    .login-container {
+        justify-content: center;
+    }
+
+    .login form {
+        width: 80%;
+    }
+
+    .l-left {
+        display: none;
+    }
+}
+
+@media screen and (max-width : 480px) {
+
+    .login form {
+        width: 90%;
+    }
+
+    .welcome {
+        font-size: 14px;
+    }
+
+    .l-left {
+        display: none;
     }
 }

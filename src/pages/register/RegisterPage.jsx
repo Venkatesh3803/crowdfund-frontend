@@ -31,41 +31,42 @@ const RegisterPage = () => {
 
     return (
         <div className="register">
-            <button>
-                <Link to={"/"} className="link">
-                    Back to home
-                </Link>
-            </button>
-            <span> Sign Up and Get ₹5000 Bonous</span>
-            <form action="" onSubmit={handleSubmit}>
-                <h2 style={{ textAlign: "center" }}>Sign Up</h2>
-                <div className="first-name">
-                    <div className="inputs">
-                        <label htmlFor="">First Name</label>
-                        <input type="text" placeholder="First Name" value={firstName} required onChange={(e) => setFirstName(e.target.value)} />
-                    </div>
-                    <div className="inputs">
-                        <label htmlFor="">Last Name</label>
-                        <input type="text" placeholder="Last Name" value={lastName} required onChange={(e) => setLastName(e.target.value)} />
-                    </div>
+            <div className="register-container">
+                <div className="r-left">
                 </div>
-                <div className="inputs">
-                    <label htmlFor="email">Email</label>
-                    <input type="email" name="" id="email" value={email} required placeholder="example@gamil.com" onChange={(e) => setEmail(e.target.value)} />
+                <div className="r-right">
+                    <span> Sign Up and Get ₹5000 Bonous</span>
+                    <form action="" onSubmit={handleSubmit}>
+                        <h2 style={{ textAlign: "start" }}>Sign Up</h2>
+                        <div className="first-name">
+                            <div className="inputs">
+                                <label htmlFor="">First Name</label>
+                                <input type="text" placeholder="First Name" value={firstName} required onChange={(e) => setFirstName(e.target.value)} />
+                            </div>
+                            <div className="inputs">
+                                <label htmlFor="">Last Name</label>
+                                <input type="text" placeholder="Last Name" value={lastName} required onChange={(e) => setLastName(e.target.value)} />
+                            </div>
+                        </div>
+                        <div className="inputs">
+                            <label htmlFor="email">Email</label>
+                            <input type="email" name="" id="email" value={email} required placeholder="example@gamil.com" onChange={(e) => setEmail(e.target.value)} />
+                        </div>
+                        <div className="inputs">
+                            <label htmlFor="password">passsword</label>
+                            <input type="password" name="" id="password" value={password} required minLength={6} placeholder="password" onChange={(e) => setPassword(e.target.value)} />
+                        </div>
+                        <div className="inputs">
+                            <label htmlFor="conform password">conform passsword</label>
+                            <input type="password" name="" id="conform password" value={conformPass} placeholder="password" onChange={(e) => setConformPass(e.target.value)} />
+                        </div>
+                        <Link to={"/login"} className="link">
+                            <p>Already have Account! Login</p>
+                        </Link>
+                        <button type="submit">Sign Up</button>
+                    </form>
                 </div>
-                <div className="inputs">
-                    <label htmlFor="password">passsword</label>
-                    <input type="password" name="" id="password" value={password} required minLength={6} placeholder="password" onChange={(e) => setPassword(e.target.value)} />
-                </div>
-                <div className="inputs">
-                    <label htmlFor="conform password">conform passsword</label>
-                    <input type="password" name="" id="conform password" value={conformPass} placeholder="password" onChange={(e) => setConformPass(e.target.value)} />
-                </div>
-                <Link to={"/login"} className="link">
-                    <p>Already have Account! Login</p>
-                </Link>
-                <button type="submit">Sign Up</button>
-            </form>
+            </div>
         </div>
     )
 }

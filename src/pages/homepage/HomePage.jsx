@@ -5,6 +5,7 @@ import Footer from '../../components/footer/Footer'
 import Banner from '../../components/banner/Banner'
 import Trusted from '../../components/Trusted/Trusted'
 import Mission from '../../components/Mission/Mission'
+import AskedQuestion from '../../components/AskedQuestions/AskedQuestion'
 
 const HomePage = () => {
     return (
@@ -15,6 +16,7 @@ const HomePage = () => {
             <Mission/>
             <ProjectList />
             <Banner />
+            <AskedQuestion/>
             <Footer />
         </div>
     )

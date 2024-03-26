@@ -1,0 +1,77 @@
+.dm {
+    position: fixed;
+    top: 0%;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: #0000005b;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dm-container {
+    width: 80%;
+    height: 80%;
+    background: white;
+    border-radius: 15px;
+    display: flex;
+    padding: 1rem;
+    position: relative;
+}
+
+.dm-container .cancel {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    padding: 0.5rem 1rem;
+    border-radius: 50%;
+    background: rgb(0, 113, 93);
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.dm-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.dm-left img {
+    width: 100%;
+    height: 40vh;
+}
+
+.dm-right {
+    flex: 1;
+    padding: 0 3rem;
+}
+
+.dm-right form {
+    width: 100%;
+}
+
+.dm-right h1 {
+    color: rgb(0, 113, 93);
+    font-weight: 600;
+}
+
+.dm-right form {
+    width: 100%;
+    border: none;
+}
+
+.dm-right form .inputs {
+    width: 100%;
+}
+
+.dm-right button:hover {
+    background: rgb(1, 131, 107);
+}
+
+.disable {
+    cursor: not-allowed;
+    background: rgb(106, 119, 117)
+}
