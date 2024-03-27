@@ -56,4 +56,12 @@
     .heading {
         font-size: 14px;
     }
+
+    .footer-container{
+        width: 90%;
+    }
+
+    .copyright{
+        font-size: 12px;
+    }
 }

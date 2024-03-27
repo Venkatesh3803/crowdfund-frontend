@@ -54,3 +54,13 @@ hr{
     font-weight: 400;
     font-size: 14px;
 }
+
+@media screen and (max-width: 780px) {
+
+    .q-top h1{
+        font-size: 1.8rem;
+    }
+    .question-container{
+        width: 95%;
+    }
+}

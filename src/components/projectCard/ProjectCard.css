@@ -78,9 +78,10 @@
     cursor: pointer;
 }
 
-@media screen and (max-width: 780px) {
+@media screen and (max-width: 992px) {
     .project-card {
         width: 280px;
+        flex-grow:1;
     }
 }
 

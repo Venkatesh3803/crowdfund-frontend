@@ -1,3 +1,8 @@
+.profile-page{
+  width: 75%;
+  margin: auto;
+}
+
 .profile-card {
   display: block;
   width: 30%;
@@ -71,9 +76,18 @@
 }
 
 
+@media screen and (max-width: 992px) {
+  .profile-card {
+    width: 60%;
+  }
+
+  .profile-page{
+    width: 100%;
+  }
+}
 @media screen and (max-width: 780px) {
   .profile-card {
-    width: 50%;
+    width: 60%;
   }
 }
 

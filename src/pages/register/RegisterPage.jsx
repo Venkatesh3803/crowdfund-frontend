@@ -33,6 +33,8 @@ const RegisterPage = () => {
         <div className="register">
             <div className="register-container">
                 <div className="r-left">
+                    <h1>Join Us</h1>
+                    <p>Together, we have the power to transform lives and shape a better tomorrow. Join the "Empower Minds" campaign today and be part of a movement that's changing the world through education. Together, let's empower minds and unlock potential.</p>
                 </div>
                 <div className="r-right">
                     <span> Sign Up and Get ₹5000 Bonous</span>

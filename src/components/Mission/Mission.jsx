@@ -1,5 +1,6 @@
 import "./Mission.css";
-import { FaClinicMedical } from "react-icons/fa";
+import { FaClinicMedical,FaSchool } from "react-icons/fa";
+import { PiStudentBold } from "react-icons/pi";
 
 const Mission = () => {
     return (
@@ -17,37 +18,37 @@ const Mission = () => {
                     </div>
                     <div className="mission-boxes">
                         <div className="box-icon">
-                        <FaClinicMedical/>
+                        <PiStudentBold/>
                         </div>
-                        <h2>Medical</h2>
+                        <h2>Education</h2>
                         <p>Heps in medical emergency and your donation can save lifes</p>
                     </div>
                     <div className="mission-boxes">
                         <div className="box-icon">
                         <FaClinicMedical/>
                         </div>
-                        <h2>Medical</h2>
+                        <h2>Cancer free</h2>
                         <p>Heps in medical emergency and your donation can save lifes</p>
                     </div>
                     <div className="mission-boxes">
                         <div className="box-icon">
                         <FaClinicMedical/>
                         </div>
-                        <h2>Medical</h2>
+                        <h2>Start Ups</h2>
+                        <p>Heps in medical emergency and your donation can save lifes</p>
+                    </div>
+                    <div className="mission-boxes">
+                        <div className="box-icon">
+                        <FaSchool/>
+                        </div>
+                        <h2>Schools</h2>
                         <p>Heps in medical emergency and your donation can save lifes</p>
                     </div>
                     <div className="mission-boxes">
                         <div className="box-icon">
                         <FaClinicMedical/>
                         </div>
-                        <h2>Medical</h2>
-                        <p>Heps in medical emergency and your donation can save lifes</p>
-                    </div>
-                    <div className="mission-boxes">
-                        <div className="box-icon">
-                        <FaClinicMedical/>
-                        </div>
-                        <h2>Medical</h2>
+                        <h2>Technology</h2>
                         <p>Heps in medical emergency and your donation can save lifes</p>
                     </div>
                  

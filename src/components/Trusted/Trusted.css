@@ -127,6 +127,10 @@
         width: 90%;
     }
 
+    .trusted-container>p{
+        font-size: 16px;
+    }
+
     .trusted-wrapper img {
         width: 400px;
         height: 400px;
@@ -161,8 +165,9 @@
     .trusted-container h1 {
         width: 80%;
         font-size: 1.6rem;
-        text-align: center;
+        text-align: start;
     }
+    
 }
 
 @media screen and (max-width:480px) {

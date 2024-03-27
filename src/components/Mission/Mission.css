@@ -2,7 +2,7 @@
     width: 100%;
     min-height: 100vh;
     background: #f3f2e7;
-    padding: 1rem ;
+    padding: 1rem;
 }
 
 .mission-container {
@@ -76,7 +76,12 @@
         font-size: 1rem;
         width: 70%;
     }
+
+    .mission-boxes {
+        width: 300px;
+    }
 }
+
 @media screen and (max-width:780px) {
     .mission-container>h1 {
         font-size: 1.6rem;
@@ -86,5 +91,13 @@
     .mission-container>p {
         font-size: 0.8rem;
         width: 100%;
+    }
+
+    .mission-container {
+        width: 90%;
+    }
+
+    .mission-boxes{
+        height: auto;
     }
 }

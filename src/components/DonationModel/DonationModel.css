@@ -19,6 +19,7 @@
     display: flex;
     padding: 1rem;
     position: relative;
+    overflow-y: scroll;
 }
 
 .dm-container .cancel {
@@ -30,6 +31,7 @@
     background: rgb(0, 113, 93);
     font-weight: 600;
     cursor: pointer;
+    z-index: 10;
 }
 
 .dm-left {
@@ -37,6 +39,8 @@
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    position: sticky;
+    top: 0;
 }
 
 .dm-left img {
@@ -74,4 +78,14 @@
 .disable {
     cursor: not-allowed;
     background: rgb(106, 119, 117)
+}
+
+@media screen and (max-width: 780px) {
+   .dm-container{
+    flex-direction: column;
+   }
+
+   .dm-left{
+    position: relative;
+   }
 }
